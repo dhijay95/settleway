@@ -1149,8 +1149,8 @@ function closeTrip() {
 
 /* ── SHARE FUNCTION ── */
 function getProductionShareUrl(tripId) {
-  const origin = (location.origin && location.origin !== "null") ? location.origin : "https://settleway.web.app";
-  return `${origin}/?id=${tripId}&join=1`;
+  const path = location.pathname.endsWith('/') ? location.pathname : location.pathname + '/';
+  return `${location.origin}${path}?id=${tripId}&join=1`;
 }
 
 function shareTripById(id) {
