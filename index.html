@@ -165,7 +165,7 @@ select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/
 .exp-cat{display:inline-block;font-size:.67rem;font-weight:600;padding:1px 7px;border-radius:20px;margin-top:2px}
 .exp-meta{font-size:.75rem;color:var(--ink2);margin-top:3px}
 .exp-hist{font-size:.68rem;color:var(--ink3);margin-top:2px;font-style:italic}
-.exp-acts{display:flex;gap:4px;margin-top:6px}
+.exp-acts{display:flex;gap:4px;margin-top:6px;flex-wrap:wrap}
 .exp-right{text-align:right;flex-shrink:0}
 .exp-amt{font-family:'DM Serif Display',serif;font-size:.98rem;color:var(--accent)}
 .exp-conv{font-size:.68rem;color:var(--ink3);margin-top:2px}
@@ -182,6 +182,13 @@ select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/
 .place-note{font-size:.8rem;color:var(--ink2);margin-top:5px;background:var(--s2);padding:6px 9px;border-radius:8px;line-height:1.4;white-space:pre-wrap}
 .place-meta{font-size:.68rem;color:var(--ink3);margin-top:5px;font-style:italic}
 .place-acts{display:flex;gap:4px;margin-top:8px;flex-wrap:wrap}
+
+/* BOUNCY INSTRUCTIONS */
+@keyframes softBounce{0%,100%{transform:translateY(0)}50%{transform:translateY(-4px)}}
+.inst-btn{display:inline-flex;align-items:center;gap:5px;padding:6px 14px;background:var(--alt);color:var(--accent);border-radius:20px;font-size:.78rem;font-weight:700;cursor:pointer;border:none;transition:all .3s}
+.inst-btn.bouncing{animation:softBounce 2s infinite}
+.inst-panel{max-height:0;overflow:hidden;transition:max-height .4s ease,opacity .4s ease;opacity:0}
+.inst-panel.open{max-height:280px;opacity:1;margin-top:8px}
 
 /* AUTOCOMPLETE */
 .search-wrap{position:relative}
@@ -417,46 +424,55 @@ select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/
         </div>
       </div>
 
-      <div class="scard">
-        <div class="scard-title">⚙ Trip Settings</div>
-        <div class="fg">
-          <label class="fl">Base Currency</label>
-          <select id="main-curr" onchange="onBaseCurrChange()">
-            <option value="MYR">MYR — Malaysian Ringgit</option>
-            <option value="SGD">SGD — Singapore Dollar</option>
-            <option value="USD">USD — US Dollar</option>
-            <option value="EUR">EUR — Euro</option>
-            <option value="GBP">GBP — British Pound</option>
-            <option value="AUD">AUD — Australian Dollar</option>
-            <option value="JPY">JPY — Japanese Yen</option>
-            <option value="THB">THB — Thai Baht</option>
-            <option value="IDR">IDR — Indonesian Rupiah</option>
-          </select>
-          <div class="api-st" id="api-status"><span style="color:#d97706">⬤</span> Fetching rates…</div>
+      <!-- COLLAPSIBLE TRIP SETTINGS -->
+      <div class="scard" style="padding-bottom:8px">
+        <div class="scard-title" onclick="toggleSettings()" style="cursor:pointer; display:flex; justify-content:space-between; align-items:center; margin-bottom:0; padding-bottom:4px; user-select:none;">
+          <span>⚙ Trip Settings</span>
+          <span id="set-chev" style="font-size:1.1rem; transition:transform .3s; transform:rotate(180deg);">▾</span>
         </div>
-        <div class="fg">
-          <label class="fl">Members</label>
-          <div class="member-lines" id="members-list"></div>
-          <input type="hidden" id="members-inp">
-          <button type="button" class="add-member-btn" onclick="addMemberLine('', true)"><span class="plus">+</span> Add person</button>
-          <div style="margin-top:8px;font-size:.72rem;color:var(--ink3)">👆 Anyone opening your share link is automatically added here</div>
-        </div>
-        <div class="fg">
-          <label class="fl">Payment Currencies</label>
-          <div style="display:flex;flex-wrap:wrap;gap:5px" id="curr-chips">
-            <label class="cc on" onclick="toggleCC(this)"><input type="checkbox" value="MYR" checked>MYR</label>
-            <label class="cc on" onclick="toggleCC(this)"><input type="checkbox" value="SGD" checked>SGD</label>
-            <label class="cc" onclick="toggleCC(this)"><input type="checkbox" value="USD">USD</label>
-            <label class="cc" onclick="toggleCC(this)"><input type="checkbox" value="EUR">EUR</label>
-            <label class="cc" onclick="toggleCC(this)"><input type="checkbox" value="IDR">IDR</label>
-            <label class="cc" onclick="toggleCC(this)"><input type="checkbox" value="JPY">JPY</label>
-            <label class="cc" onclick="toggleCC(this)"><input type="checkbox" value="THB">THB</label>
-            <label class="cc" onclick="toggleCC(this)"><input type="checkbox" value="GBP">GBP</label>
-            <label class="cc" onclick="toggleCC(this)"><input type="checkbox" value="AUD">AUD</label>
+        
+        <div id="set-panel" class="act-panel open">
+          <div style="padding-top:12px;">
+            <div class="fg">
+              <label class="fl">Base Currency</label>
+              <select id="main-curr" onchange="onBaseCurrChange()">
+                <option value="MYR">MYR — Malaysian Ringgit</option>
+                <option value="SGD">SGD — Singapore Dollar</option>
+                <option value="USD">USD — US Dollar</option>
+                <option value="EUR">EUR — Euro</option>
+                <option value="GBP">GBP — British Pound</option>
+                <option value="AUD">AUD — Australian Dollar</option>
+                <option value="JPY">JPY — Japanese Yen</option>
+                <option value="THB">THB — Thai Baht</option>
+                <option value="IDR">IDR — Indonesian Rupiah</option>
+              </select>
+              <div class="api-st" id="api-status"><span style="color:#d97706">⬤</span> Fetching rates…</div>
+            </div>
+            <div class="fg">
+              <label class="fl">Members</label>
+              <div class="member-lines" id="members-list"></div>
+              <input type="hidden" id="members-inp">
+              <button type="button" class="add-member-btn" onclick="addMemberLine('', true)"><span class="plus">+</span> Add person</button>
+              <div style="margin-top:8px;font-size:.72rem;color:var(--ink3)">👆 Anyone opening your share link is automatically added here</div>
+            </div>
+            <div class="fg">
+              <label class="fl">Payment Currencies</label>
+              <div style="display:flex;flex-wrap:wrap;gap:5px" id="curr-chips">
+                <label class="cc on" onclick="toggleCC(this)"><input type="checkbox" value="MYR" checked>MYR</label>
+                <label class="cc on" onclick="toggleCC(this)"><input type="checkbox" value="SGD" checked>SGD</label>
+                <label class="cc" onclick="toggleCC(this)"><input type="checkbox" value="USD">USD</label>
+                <label class="cc" onclick="toggleCC(this)"><input type="checkbox" value="EUR">EUR</label>
+                <label class="cc" onclick="toggleCC(this)"><input type="checkbox" value="IDR">IDR</label>
+                <label class="cc" onclick="toggleCC(this)"><input type="checkbox" value="JPY">JPY</label>
+                <label class="cc" onclick="toggleCC(this)"><input type="checkbox" value="THB">THB</label>
+                <label class="cc" onclick="toggleCC(this)"><input type="checkbox" value="GBP">GBP</label>
+                <label class="cc" onclick="toggleCC(this)"><input type="checkbox" value="AUD">AUD</label>
+              </div>
+            </div>
+            <div class="fg" style="margin-bottom:4px">
+              <button class="btn-xs" onclick="openBudgetModal()">🎯 Set Trip Budget</button>
+            </div>
           </div>
-        </div>
-        <div class="fg" style="margin-bottom:0">
-          <button class="btn-xs" onclick="openBudgetModal()">🎯 Set Trip Budget</button>
         </div>
       </div>
 
@@ -569,18 +585,23 @@ select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/
           <div class="filter-row" id="place-filter" style="margin:0"></div>
         </div>
 
-        <!-- INSTRUCTIONS START -->
-        <div style="background:var(--s2);color:var(--ink);padding:13px 15px;border-radius:var(--r);font-size:.82rem;line-height:1.5;margin-bottom:16px;border:1px solid var(--brd)">
-          <strong style="color:var(--accent);font-size:.88rem">What is this for?</strong><br>
-          Build a shared trip itinerary. Save restaurants, attractions, or meeting spots so everyone in your group knows exactly where to go.<br><br>
-          <strong style="color:var(--accent);font-size:.88rem">How to use it:</strong>
-          <ul style="margin-left:18px;margin-top:5px;color:var(--ink2)">
-            <li style="margin-bottom:4px"><strong style="color:var(--ink)">Search:</strong> Type a place below to automatically link it to Google Maps.</li>
-            <li style="margin-bottom:4px"><strong style="color:var(--ink)">Status:</strong> Mark it as <em>👀 Want to try</em>, then flip it to <em>✅ Visited</em> later.</li>
-            <li><strong style="color:var(--ink)">Notepad:</strong> Drop menu recommendations, ticket prices, or opening hours for the group.</li>
-          </ul>
+        <!-- BOUNCY INSTRUCTIONS START -->
+        <div style="text-align:center;margin-bottom:12px;">
+          <button id="inst-btn" class="inst-btn bouncing" onclick="toggleInstructions()">💡 What is this for? ▾</button>
         </div>
-        <!-- INSTRUCTIONS END -->
+        <div id="inst-panel" class="inst-panel">
+          <div style="background:var(--s2);color:var(--ink);padding:13px 15px;border-radius:var(--r);font-size:.82rem;line-height:1.5;margin-bottom:16px;border:1px solid var(--brd)">
+            <strong style="color:var(--accent);font-size:.88rem">Build a shared itinerary:</strong><br>
+            Save restaurants, attractions, or meeting spots so everyone knows exactly where to go.<br>
+            <ul style="margin-left:18px;margin-top:8px;color:var(--ink2)">
+              <li style="margin-bottom:4px"><strong>Search:</strong> Auto-links to Google Maps.</li>
+              <li style="margin-bottom:4px"><strong>Vote:</strong> Tap 👍 to hype up places you want to go.</li>
+              <li style="margin-bottom:4px"><strong>Directions:</strong> Tap 🧭 to open Maps routing.</li>
+              <li><strong>Convert:</strong> Mark as ✅ Visited to turn the place into an Expense.</li>
+            </ul>
+          </div>
+        </div>
+        <!-- BOUNCY INSTRUCTIONS END -->
 
         <div class="scard">
           <div class="row2 fg">
@@ -638,7 +659,7 @@ select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/
    FIREBASE CONFIGURATION
    ═══════════════════════════════════════════════════════════════════ */
 const FB = {
-  apiKey:            "AIzaSyBAtDD9eP_Sjmkt04Eq5CBk3gd6BTwXNsw",
+  apiKey:            "AIzaSyBAtDD9eP_Sjmkt04Eq5CBK3gd6BTWxNsw",
   authDomain:        "settleway-2fdeb.firebaseapp.com",
   databaseURL:       "https://settleway-2fdeb-default-rtdb.asia-southeast1.firebasedatabase.app/",
   projectId:         "settleway-2fdeb",
@@ -875,7 +896,7 @@ async function autoJoinTrip(tripId) {
   }
 }
 
-/* ── MERGE ENGINE ── */
+/* ── MERGE ENGINE (SYNC DELETIONS & ADDS) ── */
 function mergeTripLocally(incoming, forceIncoming = false) {
   const idx = allTrips.findIndex(t => t.id === incoming.id);
   const toArray = (obj) => {
@@ -886,14 +907,8 @@ function mergeTripLocally(incoming, forceIncoming = false) {
 
   if (idx !== -1) {
     const ex = allTrips[idx];
-    ex.expenses = toArray(ex.expenses);
-    const incExp = toArray(incoming.expenses);
-    incExp.forEach(ie => {
-      const ei = ex.expenses.findIndex(e => e.id === ie.id);
-      if (ei === -1) ex.expenses.push(ie); else ex.expenses[ei] = ie;
-    });
-
     const isCloudNewer = incoming._ts && ex._ts && (incoming._ts >= ex._ts);
+    
     if (forceIncoming || isCloudNewer || !ex._ts) {
       ex.title = incoming.title !== undefined ? incoming.title : ex.title; 
       ex.membersInput = incoming.membersInput !== undefined ? incoming.membersInput : ex.membersInput;
@@ -901,17 +916,13 @@ function mergeTripLocally(incoming, forceIncoming = false) {
       if (incoming.selectedCurrencies) ex.selectedCurrencies = incoming.selectedCurrencies;
       if (incoming.budget !== undefined) ex.budget = incoming.budget;
       ex._ts = incoming._ts || Date.now();
+      
+      // Completely replace local arrays with cloud arrays to ensure deleted items are actually removed globally
+      ex.expenses = toArray(incoming.expenses);
+      ex.places = toArray(incoming.places);
+      ex.activity = toArray(incoming.activity).sort((a,b) => b.ts - a.ts);
+      ex.settlements = toArray(incoming.settlements);
     }
-
-    ex.activity = toArray(incoming.activity).sort((a,b) => b.ts - a.ts);
-    ex.places = toArray(ex.places);
-    const incPlaces = toArray(incoming.places);
-    incPlaces.forEach(ip => {
-      const pi = ex.places.findIndex(p => p.id === ip.id);
-      if (pi === -1) ex.places.push(ip); else ex.places[pi] = ip;
-    });
-
-    ex.settlements = toArray(incoming.settlements);
     allTrips[idx] = ex;
   } else {
     incoming.expenses = toArray(incoming.expenses);
@@ -1145,6 +1156,13 @@ function openTrip(id, skipURL = false) {
   switchTab(savedTab);
   collapseActivity();
   
+  // Restore Settings Toggle State
+  const setOpen = store.get("Settleway_SetOpen_" + id) !== 'false';
+  const setPanel = document.getElementById('set-panel');
+  const setChev = document.getElementById('set-chev');
+  if (setOpen) { setPanel.classList.add('open'); setChev.style.transform = 'rotate(180deg)'; } 
+  else { setPanel.classList.remove('open'); setChev.style.transform = 'rotate(0deg)'; }
+
   updateMembersUI(); 
   updateExpCurrUI(); 
   fetchRates();
@@ -1165,6 +1183,14 @@ function closeTrip() {
   history.replaceState(null, '', getBasePath());
   document.getElementById('trip-view').classList.add('hidden');
   renderDash();
+}
+
+function toggleSettings() {
+  const panel = document.getElementById('set-panel');
+  const chev = document.getElementById('set-chev');
+  const isOpen = panel.classList.toggle('open');
+  chev.style.transform = isOpen ? 'rotate(180deg)' : 'rotate(0deg)';
+  if (activeTripId) store.set("Settleway_SetOpen_" + activeTripId, isOpen);
 }
 
 /* ── SHARE FUNCTION (ROUTING) ── */
@@ -1800,6 +1826,24 @@ document.addEventListener('click', (e) => {
   if (ac && !e.target.closest('.search-wrap')) ac.classList.add('hidden');
 });
 
+function toggleInstructions() {
+  const panel = document.getElementById('inst-panel');
+  const btn = document.getElementById('inst-btn');
+  const isOpen = panel.classList.toggle('open');
+  if(isOpen) {
+    btn.classList.remove('bouncing');
+    btn.innerHTML = 'Got it ▴';
+    btn.style.background = 'transparent';
+    btn.style.color = 'var(--ink3)';
+    btn.style.border = '1px solid var(--brd)';
+  } else {
+    btn.innerHTML = '💡 What is this for? ▾';
+    btn.style.background = 'var(--alt)';
+    btn.style.color = 'var(--accent)';
+    btn.style.border = 'none';
+  }
+}
+
 async function searchPlaces(q) {
   const ac = document.getElementById('place-autocomplete');
   if (!q || q.length < 3) { ac.classList.add('hidden'); return; }
@@ -1836,7 +1880,8 @@ function selectPlace(name, lat, lon) {
 const PLACE_ICONS = { food:'🍜', drink:'🥂', view:'👀', activity:'🎟️', other:'📍' };
 const PLACE_FILTERS = { all:'All', want:'👀 Want', visited:'✅ Visited' };
 
-function buildMapsLink(query) { return 'https://www.google.com/maps/search/?api=1&query='+encodeURIComponent(query); }
+// Direct routing link formatter for GPS navigation
+function buildMapsDirLink(query) { return 'https://www.google.com/maps/dir/?api=1&destination='+encodeURIComponent(query); }
 
 function savePlace() {
   const trip = allTrips.find(t=>t.id===activeTripId); if (!trip) return;
@@ -1860,7 +1905,7 @@ function savePlace() {
     cancelPlaceEdit();
   } else {
     const id = 'place_'+Date.now()+'_'+Math.floor(Math.random()*9999);
-    trip.places.push({ id, name, category:cat, note, status, addedBy:myName||'User', timestamp:ts, mapsQuery });
+    trip.places.push({ id, name, category:cat, note, status, addedBy:myName||'User', timestamp:ts, mapsQuery, votes:{} });
     logActivity(trip, `${myName||'Someone'} saved a bookmark — "${name}"`);
   }
   
@@ -1910,10 +1955,30 @@ function togglePlaceStatus(id) {
   pushFB(trip);
   renderPlaces();
 }
+function toggleVotePlace(id) {
+  if (!myName) return showIdModal(false);
+  const trip = allTrips.find(t=>t.id===activeTripId);
+  const p = trip.places.find(x=>x.id===id); if (!p) return;
+  if (!p.votes) p.votes = {};
+  if (p.votes[myName]) delete p.votes[myName]; else p.votes[myName] = true;
+  trip._ts = Date.now();
+  saveLocal();
+  pushFB(trip);
+  renderPlaces();
+}
+function convertPlaceToExpense(id) {
+  const trip = allTrips.find(t=>t.id===activeTripId);
+  const p = trip.places.find(x=>x.id===id); if (!p) return;
+  switchTab('expenses');
+  document.getElementById('exp-name').value = p.name;
+  document.getElementById('exp-cat').value = p.category || 'misc';
+  document.getElementById('exp-amt').focus();
+  window.scrollTo({top:0, behavior:'smooth'});
+}
 function sharePlace(id) {
   const trip = allTrips.find(t=>t.id===activeTripId);
   const p = trip.places.find(x=>x.id===id); if (!p) return;
-  const text = `🔖 ${p.name}${p.note?' — '+p.note:''}\n${buildMapsLink(p.mapsQuery||p.name)}`;
+  const text = `🔖 ${p.name}${p.note?' — '+p.note:''}\n${buildMapsDirLink(p.mapsQuery||p.name)}`;
   if (navigator.share) { navigator.share({ title:p.name, text }).catch(()=>{}); }
   else {
     if (navigator.clipboard && window.isSecureContext) {
@@ -1923,24 +1988,50 @@ function sharePlace(id) {
     }
   }
 }
+
+// Converts URLs in text to clickable links safely
+function linkifyText(text) {
+  if (!text) return '';
+  const safeText = text.replace(/[&<>'"]/g, tag => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#39;', '"': '&quot;' }[tag]));
+  return safeText.replace(/(https?:\/\/[^\s]+)/g, '<a href="$1" target="_blank" style="color:var(--blu);text-decoration:underline;">$1</a>');
+}
+
 function renderPlaces() {
   const trip = allTrips.find(t=>t.id===activeTripId); if (!trip) return;
   const el = document.getElementById('places-list'); if (!el) return;
   if (!trip.places || !Array.isArray(trip.places)) trip.places = trip.places ? Object.values(trip.places) : [];
+  
+  // Sort bookmarks by vote count (highest first)
   let places = placeFilter==='all' ? trip.places : trip.places.filter(p=>p.status===placeFilter);
+  places.sort((a, b) => {
+    const vA = a.votes ? Object.keys(a.votes).length : 0;
+    const vB = b.votes ? Object.keys(b.votes).length : 0;
+    return vB - vA;
+  });
+
   if (!places.length) { el.innerHTML='<div class="empty" style="padding:14px 0"><div class="ico">🔖</div><p>No bookmarks saved'+(placeFilter!=='all'?' with this status':' yet')+'.</p></div>'; return; }
-  el.innerHTML = places.slice().reverse().map(p=>{
+  
+  el.innerHTML = places.map(p=>{
     const statusBadge = p.status==='visited' ? '<span class="place-status status-visited">✅ Visited</span>' : '<span class="place-status status-want">👀 Want to try</span>';
-    const note = p.note ? `<div class="place-note">📝 ${p.note}</div>` : '';
+    const noteHTML = p.note ? `<div class="place-note">📝 ${linkifyText(p.note)}</div>` : '';
     const meta = `<div class="place-meta">saved by ${p.addedBy||'User'}${p.timestamp?' · '+p.timestamp:''}</div>`;
+    
+    const voteCount = p.votes ? Object.keys(p.votes).length : 0;
+    const hasVoted = p.votes && p.votes[myName];
+    const voteBtnHTML = `<button class="btn-xs ${hasVoted ? 'act' : ''}" onclick="toggleVotePlace('${p.id}')">👍 ${voteCount}</button>`;
+    
+    const convertBtnHTML = p.status==='visited' ? `<button class="btn-xs" style="background:var(--grn-lt);color:var(--grn)" onclick="convertPlaceToExpense('${p.id}')">💸 Add Expense</button>` : '';
+
     return `<div class="place-item">
       <div class="place-icon">${PLACE_ICONS[p.category]||'📍'}</div>
       <div class="place-body">
         <div class="place-name">${p.name}</div>
         <div>${statusBadge}</div>
-        ${note}${meta}
+        ${noteHTML}${meta}
         <div class="place-acts">
-          <button class="btn-xs" onclick="window.open('${buildMapsLink(p.mapsQuery||p.name)}','_blank')">📍 Open Maps</button>
+          ${voteBtnHTML}
+          <button class="btn-xs" onclick="window.open('${buildMapsDirLink(p.mapsQuery||p.name)}','_blank')">🧭 Directions</button>
+          ${convertBtnHTML}
           <button class="btn-xs" onclick="sharePlace('${p.id}')">🔗 Share</button>
           <button class="btn-xs" onclick="togglePlaceStatus('${p.id}')">${p.status==='visited'?'↩️ Mark want':'✅ Mark visited'}</button>
           <button class="btn-xs" onclick="editPlace('${p.id}')">✏️ Edit</button>
