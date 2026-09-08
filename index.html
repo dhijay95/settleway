@@ -571,7 +571,7 @@ select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/
       <div class="filter-row" id="cat-filter"></div>
       <div id="exp-list"></div>
 
-      <div class="sec-head" style="margin-top:20px"><div class="sec-title">History</div></div>
+      <div class="sec-head" id="history-sec-head" style="margin-top:20px"><div class="sec-title">History</div></div>
       <button type="button" class="act-toggle" id="act-toggle" onclick="toggleActivity()">
         <span class="at-lbl">📋 Activity Log</span>
         <span class="at-chev">▾</span>
@@ -811,6 +811,7 @@ function handleAuthChange(user) {
   if (urlId && !allTrips.some(t => t.id === urlId)) {
     loadCloudTrip(urlId, p.get('join') === '1');
   }
+  if (activeTripId) updateAdminUI();
 }
 
 function loadTripsForUser(uid) {
@@ -919,6 +920,7 @@ function mergeTripLocally(incoming, forceIncoming = false) {
       ex.mainCurrency = incoming.mainCurrency !== undefined ? incoming.mainCurrency : ex.mainCurrency;
       if (incoming.selectedCurrencies) ex.selectedCurrencies = incoming.selectedCurrencies;
       if (incoming.budget !== undefined) ex.budget = incoming.budget;
+      if (incoming.creatorUid !== undefined) ex.creatorUid = incoming.creatorUid;
       ex._ts = incoming._ts || Date.now();
       
       // Completely replace local arrays with cloud arrays to ensure deleted items are actually removed globally
@@ -1029,6 +1031,7 @@ function attachListener(id) {
       }
 
       renderExpenses(); renderDebts(); updateStat(); updateBreakdown(); updateBudget(); renderActivity(); renderPlaces(); renderPlaceFilter();
+      updateAdminUI();
     }
   });
 }
@@ -1110,6 +1113,7 @@ function createTrip() {
     activity:[{ text:`${myName||'You'} created the trip`, ts:Date.now() }], 
     places:[], 
     settlements:[],
+    creatorUid: currentUser ? currentUser.uid : 'local',
     _ts: Date.now()
   };
   allTrips.push(trip); 
@@ -1130,6 +1134,26 @@ function deleteTrip(id) {
 }
 
 /* ── OPEN / CLOSE TRIP (ROUTING) ── */
+function updateAdminUI() {
+  const trip = allTrips.find(t => t.id === activeTripId);
+  if (!trip) return;
+  
+  let isAdmin = true; // Default to true for backwards compatibility with old trips
+  if (trip.creatorUid) {
+    if (currentUser && trip.creatorUid === currentUser.uid) isAdmin = true;
+    else if (trip.creatorUid === 'local') isAdmin = true; 
+    else isAdmin = false;
+  }
+
+  document.getElementById('history-sec-head').style.display = isAdmin ? 'flex' : 'none';
+  document.getElementById('act-toggle').style.display = isAdmin ? 'flex' : 'none';
+  
+  if (!isAdmin) {
+    document.getElementById('act-panel').classList.remove('open');
+    document.getElementById('act-toggle').classList.remove('open');
+  }
+}
+
 function openTrip(id, skipURL = false) {
   activeTripId = id; 
   store.set("Settleway_ActiveTripId", id);
@@ -1177,6 +1201,7 @@ function openTrip(id, skipURL = false) {
   renderPlaces(); renderPlaceFilter();
   catFilter = 'all'; renderCatFilter();
   document.getElementById('mine-toggle-btn').classList.remove('act');
+  updateAdminUI();
 }
 
 function closeTrip() {
