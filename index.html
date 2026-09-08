@@ -132,7 +132,7 @@ select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/
 .scard-title{font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:.09em;color:var(--ink3);margin-bottom:13px}
 
 /* SECTION HEADER */
-.sec-head{display:flex;justify-content:space-between;align-items:center;margin:16px 0 9px;flex-wrap:gap:6px}
+.sec-head{display:flex;justify-content:space-between;align-items:center;margin:16px 0 9px;flex-wrap:wrap;gap:6px}
 .sec-title{font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:.09em;color:var(--ink3)}
 
 /* API STATUS */
@@ -624,13 +624,13 @@ select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/
    FIREBASE CONFIGURATION
    ═══════════════════════════════════════════════════════════════════ */
 const FB = {
-  apiKey:            "AIzaSyALK2505G_al3Jkk9ptf1kEuaj3qg8P1pk",
-  authDomain:        "tripsplit-dc2a9.firebaseapp.com",
-  databaseURL:       "https://tripsplit-dc2a9-default-rtdb.asia-southeast1.firebasedatabase.app/",
-  projectId:         "tripsplit-dc2a9",
-  storageBucket:     "tripsplit-dc2a9.firebasestorage.app",
-  messagingSenderId: "138368232535",
-  appId:             "1:138368232535:web:458e3f64e0d66269d74712"
+  apiKey:            "AIzaSyBAtDD9eP_Sjmkt04Eq5CBK3gd6BTWxNsw",
+  authDomain:        "settleway-2fdeb.firebaseapp.com",
+  databaseURL:       "https://settleway-2fdeb-default-rtdb.asia-southeast1.firebasedatabase.app/",
+  projectId:         "settleway-2fdeb",
+  storageBucket:     "settleway-2fdeb.firebasestorage.app",
+  messagingSenderId: "969921284256",
+  appId:             "1:969921284256:web:f7389db46817905cfb61c5"
 };
 
 const FB_ON = FB.apiKey !== "YOUR_API_KEY";
@@ -662,6 +662,18 @@ let lastWriteTs = 0;
 let currentItems = [], itemIdCounter = 0;
 let editingPlaceId = null, placeFilter = 'all';
 
+/* ── PATH RESOLVER (PERMANENT 404 FIX) ── */
+function getBasePath() {
+  let path = window.location.pathname;
+  if (path.endsWith('index.html')) {
+    path = path.replace('index.html', '');
+  }
+  if (!path.endsWith('/')) {
+    path += '/';
+  }
+  return path;
+}
+
 /* ── LIFECYCLE & REFRESH HYDRATION ── */
 window.onload = () => {
   try { 
@@ -673,25 +685,22 @@ window.onload = () => {
   if (!myName) showIdModal(false);
   updateDashChip();
 
-  const p = new URLSearchParams(location.search);
+  const p = new URLSearchParams(window.location.search);
   const urlId = p.get('id');
   const isJoin = p.get('join') === '1';
   const savedActiveId = store.get("Settleway_ActiveTripId");
   const targetId = urlId || savedActiveId;
 
-  // 1. Instant local restore to prevent flicker or blank screen
   if (targetId && allTrips.some(t => t.id === targetId)) {
     openTrip(targetId, true);
   } else if (!urlId) {
     renderDash();
   }
 
-  // 2. Authenticate anonymously in background if not logged in
   if (FB_ON && auth && !auth.currentUser) {
     auth.signInAnonymously().catch(err => console.log("Anon auth skipped:", err));
   }
 
-  // 3. Connect to cloud for live data or if accessing via link
   if (urlId && FB_ON && db) {
     loadCloudTrip(urlId, isJoin);
   }
@@ -758,7 +767,7 @@ function handleAuthChange(user) {
   }
   updateDashChip();
 
-  const p = new URLSearchParams(location.search);
+  const p = new URLSearchParams(window.location.search);
   const urlId = p.get('id');
   if (urlId && !allTrips.some(t => t.id === urlId)) {
     loadCloudTrip(urlId, p.get('join') === '1');
@@ -835,12 +844,10 @@ async function autoJoinTrip(tripId) {
       }
       trip.activity.unshift({ text: `${myName} joined the trip`, ts: Date.now() });
       
-      // Update cloud and local simultaneously
       await db.ref('trips/' + tripId).set(trip);
       mergeTripLocally(trip, true);
       saveLocal();
       
-      // Live UI refresh for member who just joined
       if (activeTripId === tripId) {
         document.getElementById('members-inp').value = trip.membersInput;
         renderMemberLines(members);
@@ -972,7 +979,6 @@ function attachListener(id) {
     saveLocal();
 
     if (activeTripId === id) {
-      // Live updates for title, currency, and members when other users join or edit
       const titleEl = document.getElementById('trip-title');
       if (titleEl && document.activeElement !== titleEl && data.title !== undefined) {
         titleEl.value = data.title;
@@ -1094,14 +1100,14 @@ function deleteTrip(id) {
   renderDash();
 }
 
-/* ── OPEN / CLOSE TRIP ── */
+/* ── OPEN / CLOSE TRIP (ROUTING) ── */
 function openTrip(id, skipURL = false) {
   activeTripId = id; 
   store.set("Settleway_ActiveTripId", id);
   
-  const currentUrlId = new URLSearchParams(location.search).get('id');
+  const currentUrlId = new URLSearchParams(window.location.search).get('id');
   if (currentUrlId !== id) {
-    history.replaceState(null, '', '?id=' + id);
+    history.replaceState(null, '', getBasePath() + '?id=' + id);
   }
 
   const trip = allTrips.find(t=>t.id===id); if (!trip) return;
@@ -1142,15 +1148,14 @@ function closeTrip() {
   if (tripListener && FB_ON) { tripListener.off(); tripListener = null; }
   activeTripId = null; editingId = null;
   store.set("Settleway_ActiveTripId", "");
-  history.replaceState(null, '', location.pathname);
+  history.replaceState(null, '', getBasePath());
   document.getElementById('trip-view').classList.add('hidden');
   renderDash();
 }
 
-/* ── SHARE FUNCTION ── */
+/* ── SHARE FUNCTION (ROUTING) ── */
 function getProductionShareUrl(tripId) {
-  const path = location.pathname.endsWith('/') ? location.pathname : location.pathname + '/';
-  return `${location.origin}${path}?id=${tripId}&join=1`;
+  return `${window.location.origin}${getBasePath()}?id=${tripId}&join=1`;
 }
 
 function shareTripById(id) {
