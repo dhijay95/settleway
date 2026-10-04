@@ -294,6 +294,16 @@ select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/
 .history-card{background:var(--s2);border-radius:var(--r);padding:11px 14px;margin-bottom:7px;display:flex;justify-content:space-between;align-items:center;font-size:.85rem}
 .history-card .hc-txt{color:var(--ink2)}
 .history-card .hc-amt{font-weight:700;color:var(--grn)}
+
+/* BALANCE BREAKDOWN (new) */
+.breakdown-toggle{width:100%;text-align:left;background:transparent;color:var(--ink2);border:1px solid var(--brd);font-size:.78rem;padding:7px 10px;border-radius:8px}
+.breakdown-toggle:hover{background:var(--s2)}
+.breakdown-panel{max-height:0;overflow:hidden;transition:max-height .3s ease,padding .3s ease;background:var(--s2);border-radius:8px;padding:0 10px}
+.breakdown-panel.open{max-height:320px;padding:9px 10px}
+.bd-line{display:flex;justify-content:space-between;gap:8px;font-size:.79rem;padding:4px 0;color:var(--ink2);border-bottom:1px solid var(--brd)}
+.bd-line:last-child{border-bottom:none}
+.bd-amt{font-weight:600;color:var(--ink);white-space:nowrap}
+.bd-amt.bd-neg{color:var(--ink3);font-weight:500}
 </style>
 </head>
 <body>
@@ -359,6 +369,17 @@ select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/
     <div class="fg"><label class="fl">Budget Amount (<span id="bud-curr-lbl">MYR</span>)</label><input type="number" id="bud-inp" placeholder="e.g., 5000" min="0" step="1"></div>
     <button class="btn btn-primary" onclick="saveBudget()">Save Budget</button>
     <button class="btn btn-ghost" onclick="closeModal('budget-modal')" style="margin-top:9px">Cancel</button>
+  </div>
+</div>
+
+<!-- SETTLE CONFIRMATION MODAL (new) -->
+<div id="settle-confirm-modal" class="modal-bg hidden">
+  <div class="modal">
+    <div class="mhandle"></div>
+    <h2>Confirm Settlement</h2>
+    <p class="sub" id="settle-confirm-text">Are you sure you want to mark this as settled?</p>
+    <button class="btn btn-primary" onclick="executeConfirmedSettle()">✓ Yes, Settle Up</button>
+    <button class="btn btn-ghost" onclick="closeModal('settle-confirm-modal')" style="margin-top:9px">Cancel</button>
   </div>
 </div>
 
@@ -700,6 +721,7 @@ let saveTimer = null, splitMode = 'equal', catFilter = 'all', mineOnly = false;
 let lastWriteTs = 0;
 let currentItems = [], itemIdCounter = 0;
 let editingPlaceId = null, placeFilter = 'all';
+let pendingSettle = null;
 
 /* ── PATH RESOLVER (PERMANENT 404 FIX) ── */
 function getBasePath() {
@@ -1748,6 +1770,32 @@ function updateBreakdown() {
   </div>`).join('')+`<div style="font-size:.72rem;color:var(--ink3);margin-top:6px">Bars show amount paid. Your share may differ.</div>`;
 }
 
+/* ── PAIRWISE BREAKDOWN (new, for "how was this calculated?") ── */
+function getPairBreakdown(trip, from, to) {
+  const base = trip.mainCurrency;
+  const lines = [];
+  (trip.expenses||[]).forEach(exp=>{
+    const { ratio } = getExpenseData(exp, base);
+    if (exp.payer===to && exp.splitBetween.includes(from)) {
+      const raw = (exp.splitAmounts && exp.splitAmounts[from]!==undefined) ? exp.splitAmounts[from]*ratio : null;
+      if (raw!==null && raw>0.004) lines.push({ text: exp.name, amount: raw, dir:'owe' });
+    }
+    if (exp.payer===from && exp.splitBetween.includes(to)) {
+      const raw = (exp.splitAmounts && exp.splitAmounts[to]!==undefined) ? exp.splitAmounts[to]*ratio : null;
+      if (raw!==null && raw>0.004) lines.push({ text: exp.name, amount: raw, dir:'owed' });
+    }
+  });
+  (trip.settlements||[]).forEach(s=>{
+    if (s.from===from && s.to===to) lines.push({ text:'Already settled', amount:s.amount, dir:'settled' });
+    if (s.from===to && s.to===from) lines.push({ text:'Already settled (reverse)', amount:s.amount, dir:'settled' });
+  });
+  return lines;
+}
+function toggleBreakdown(id) {
+  const el = document.getElementById(id); if (!el) return;
+  el.classList.toggle('open');
+}
+
 function renderDebts() {
   const trip = allTrips.find(t=>t.id===activeTripId); if(!trip) return;
   const base = trip.mainCurrency;
@@ -1790,9 +1838,16 @@ function renderDebts() {
   if (!debtTransactions.length) {
     listEl.innerHTML = '<div class="empty" style="padding:14px 0"><div class="ico">🎉</div><p>All group payments are settled!</p></div>';
   } else {
-    listEl.innerHTML = debtTransactions.map(t => {
+    listEl.innerHTML = debtTransactions.map((t, idx) => {
       const isMePayer = t.from === myName;
       const isMeReceiver = t.to === myName;
+      const breakdown = getPairBreakdown(trip, t.from, t.to);
+      const bdId = 'bd_' + idx + '_' + t.from.replace(/[^a-zA-Z0-9]/g,'') + '_' + t.to.replace(/[^a-zA-Z0-9]/g,'');
+      const breakdownHTML = breakdown.length ? `
+        <button type="button" class="breakdown-toggle" onclick="toggleBreakdown('${bdId}')">🔍 How was this calculated?</button>
+        <div class="breakdown-panel" id="${bdId}">
+          ${breakdown.map(l=>`<div class="bd-line"><span>${l.text}${l.dir==='owe'?` — ${t.from}'s share`:l.dir==='owed'?` — ${t.to}'s share (offsets)`:''}</span><span class="bd-amt${l.dir==='owed'?' bd-neg':''}">${l.dir==='owed'?'−':''}${base} ${l.amount.toFixed(2)}</span></div>`).join('')}
+        </div>` : '';
       return `
         <div class="pay-card">
           <div class="pc-top">
@@ -1803,7 +1858,8 @@ function renderDebts() {
             </div>
             <div class="pc-amt">${base} ${t.amount.toFixed(2)}</div>
           </div>
-          <button class="pc-btn" onclick="markSettled('${t.from.replace(/'/g,"\\'")}','${t.to.replace(/'/g,"\\'")}',${t.amount})">
+          ${breakdownHTML}
+          <button class="pc-btn" onclick="confirmSettle('${t.from.replace(/'/g,"\\'")}','${t.to.replace(/'/g,"\\'")}',${t.amount})">
             ✓ Mark as Paid
           </button>
         </div>
@@ -1822,6 +1878,23 @@ function renderDebts() {
       </div>
     `).join('');
   }
+}
+
+/* ── SETTLE CONFIRMATION (new) ── */
+function confirmSettle(from, to, amount) {
+  pendingSettle = { from, to, amount };
+  const trip = allTrips.find(t=>t.id===activeTripId);
+  const base = trip ? trip.mainCurrency : '';
+  document.getElementById('settle-confirm-text').textContent =
+    `Mark that ${from} paid ${to} ${base} ${parseFloat(amount).toFixed(2)}? This moves the amount into Settlement History.`;
+  document.getElementById('settle-confirm-modal').classList.remove('hidden');
+}
+function executeConfirmedSettle() {
+  if (!pendingSettle) return;
+  const { from, to, amount } = pendingSettle;
+  pendingSettle = null;
+  closeModal('settle-confirm-modal');
+  markSettled(from, to, amount);
 }
 
 function markSettled(from, to, amount) {
