@@ -10,7 +10,7 @@
 <link rel="manifest" href="manifest.json">
 <link rel="apple-touch-icon" href="https://cdn-icons-png.flaticon.com/512/3163/3163628.png">
 <title>Settleway — Live Expense Tracker</title>
-<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600&family=DM+Serif+Display&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:ital,wght@0,300;0,400;0,500;1,300;1,400;1,500&family=DM+Sans:ital,opsz,wght@0,9..40,100..1000&family=DM+Serif+Display&display=swap" rel="stylesheet">
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{
@@ -31,7 +31,6 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--ink);min-
 .view{display:flex;flex-direction:column;min-height:100%}
 .hidden{display:none!important}
 
-/* DASH HEADER */
 .dash-head{background:#1a1714;padding:36px 22px 28px;color:#fff;position:relative;overflow:hidden}
 .dash-head::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 80% 0%,rgba(212,98,42,.28) 0%,transparent 65%);pointer-events:none}
 .dash-head .lbl{font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.38);margin-bottom:10px;font-weight:500}
@@ -41,13 +40,11 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--ink);min-
 .avatar{width:26px;height:26px;border-radius:50%;background:var(--accent);display:flex;align-items:center;justify-content:center;font-size:.72rem;font-weight:600;color:#fff;flex-shrink:0;overflow:hidden}
 .avatar img{width:100%;height:100%;object-fit:cover}
 
-/* AUTH BUTTON */
 .gsi-btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;margin-top:18px;background:#fff;border:none;border-radius:30px;padding:9px 18px;cursor:pointer;font-family:'DM Sans',sans-serif;color:#1a1714;font-size:.87rem;font-weight:600;transition:transform .12s,box-shadow .12s;box-shadow:0 2px 10px rgba(0,0,0,.18)}
 .gsi-btn:hover{transform:translateY(-1px);box-shadow:0 4px 14px rgba(0,0,0,.24)}
 .gsi-btn .gsi-ico{width:20px;height:20px;flex-shrink:0}
 .acct-note{font-size:.72rem;color:rgba(255,255,255,.42);margin-top:8px;max-width:280px;line-height:1.4}
 
-/* NAV */
 .trip-header{position:sticky;top:0;z-index:60;background:var(--surface)}
 .nav-bar{background:var(--surface);border-bottom:1px solid var(--brd);padding:11px 14px;display:flex;align-items:center;gap:9px}
 .nav-back{width:34px;height:34px;border-radius:50%;background:var(--s2);border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:1rem;flex-shrink:0;transition:background .14s}
@@ -60,24 +57,21 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--ink);min-
 .pill-off{background:#fef9c3;color:#7a5c00}
 .pill-local{background:var(--s2);color:var(--ink2)}
 
-/* STAT BAR */
 .stat-bar{background:var(--surface);border-bottom:1px solid var(--brd);padding:13px 22px;display:flex;align-items:baseline;gap:8px}
 .s-lbl{font-size:.73rem;font-weight:600;text-transform:uppercase;letter-spacing:.07em;color:var(--ink3)}
-.s-val{font-family:'DM Serif Display',serif;font-size:1.65rem;color:var(--accent)}
-.s-curr{font-size:.82rem;color:var(--ink2)}
+.s-val{font-family:'DM Sans',sans-serif;font-weight:700;font-size:1.65rem;color:var(--accent)}
+.s-curr{font-family:'DM Sans',sans-serif;font-size:.82rem;font-weight:600;color:var(--ink2)}
 
-/* CONTENT */
 .content{padding:18px;flex:1}
 
-/* TRIP CARDS */
 .trip-card{background:var(--surface);border-radius:var(--rl);padding:17px;cursor:pointer;border:1px solid var(--brd);transition:transform .15s,box-shadow .15s,border-color .15s;position:relative;margin-bottom:10px}
 .trip-card:hover{transform:translateY(-2px);box-shadow:var(--shd);border-color:var(--brd2)}
 .tc-inner{display:flex;gap:13px;align-items:flex-start}
 .tc-icon{width:42px;height:42px;border-radius:11px;background:var(--s2);display:flex;align-items:center;justify-content:center;font-size:1.25rem;flex-shrink:0}
 .tc-info h2{font-size:.97rem;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:260px;margin-bottom:2px}
 .tc-meta{font-size:.77rem;color:var(--ink2)}
-.tc-total{font-family:'DM Serif Display',serif;font-size:1.22rem;color:var(--accent);margin-top:9px}
-.tc-total small{font-family:'DM Sans',sans-serif;font-size:.7rem;color:var(--ink3);margin-left:3px}
+.tc-total{font-family:'DM Sans',sans-serif;font-weight:700;font-size:1.22rem;color:var(--accent);margin-top:9px}
+.tc-total small{font-family:'DM Sans',sans-serif;font-weight:600;font-size:.7rem;color:var(--ink3);margin-left:3px}
 .tc-pips{display:flex;flex-wrap:wrap;gap:4px;margin-top:7px}
 .pip{font-size:.7rem;font-weight:500;padding:2px 8px;border-radius:20px;background:var(--s2);color:var(--ink2)}
 .card-acts{position:absolute;top:12px;right:12px;display:flex;gap:5px}
@@ -90,7 +84,6 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--ink);min-
 .live-dot{width:5px;height:5px;border-radius:50%;background:currentColor;animation:blink 1.6s infinite}
 @keyframes blink{0%,100%{opacity:1}50%{opacity:.25}}
 
-/* BUTTONS */
 .btn{display:flex;align-items:center;justify-content:center;gap:7px;padding:12px 18px;border-radius:var(--r);font-family:'DM Sans',sans-serif;font-size:.91rem;font-weight:600;border:none;cursor:pointer;transition:transform .12s,background .15s;width:100%}
 .btn:active{transform:scale(.98)}
 .btn-primary{background:var(--accent);color:#fff}.btn-primary:hover{background:var(--adk)}
@@ -104,7 +97,6 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--ink);min-
 .btn-xs.del:hover{background:var(--red-lt);color:var(--red)}
 .btn-xs.act{background:var(--alt);color:var(--accent)}
 
-/* FORMS */
 .fg{margin-bottom:12px}.fg:last-child{margin-bottom:0}
 .fl{display:block;font-size:.71rem;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--ink2);margin-bottom:5px}
 input[type=text],input[type=number],input[type=email],input[type=password],select,textarea{width:100%;padding:10px 11px;background:var(--surface);border:1px solid var(--brd2);border-radius:var(--r);font-family:'DM Sans',sans-serif;font-size:.91rem;color:var(--ink);transition:border-color .14s,box-shadow .14s;-webkit-appearance:none;appearance:none}
@@ -113,36 +105,28 @@ select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/
 .row2{display:flex;gap:8px}.row2>*{flex:1}
 .row2>.fix-sm{flex:0 0 84px}
 
-/* SPLIT MODE TABS */
 .split-tabs{display:flex;gap:4px;background:var(--s2);padding:4px;border-radius:10px;margin-bottom:8px}
 .stab{flex:1;padding:7px 4px;border:none;border-radius:7px;font-family:'DM Sans',sans-serif;font-size:.72rem;font-weight:600;cursor:pointer;background:transparent;color:var(--ink2);transition:all .15s;text-align:center}
 .stab.act{background:var(--surface);color:var(--accent);box-shadow:0 1px 4px rgba(0,0,0,.1)}
 .split-hint{font-size:.74rem;color:var(--ink2);background:var(--alt);border-radius:8px;padding:7px 10px;margin-bottom:14px;line-height:1.4}
 
-/* MEMBER CHIPS */
 .chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:5px}
 .chip{display:inline-flex;align-items:center;gap:4px;padding:5px 11px;border-radius:20px;font-size:.79rem;font-weight:500;cursor:pointer;background:var(--s2);color:var(--ink2);border:1.5px solid transparent;transition:all .12s;user-select:none}
 .chip input{display:none}
 .chip.on{background:var(--alt);color:var(--accent);border-color:var(--accent)}
 .chip .ck{display:none;font-size:.65rem}.chip.on .ck{display:inline}
 
-/* CURRENCY CHIPS */
 .cc{padding:4px 10px;border-radius:8px;font-size:.77rem;font-weight:700;cursor:pointer;background:var(--s2);color:var(--ink2);border:1.5px solid transparent;transition:all .12s;user-select:none}
 .cc input{display:none}
 .cc.on{background:var(--alt);color:var(--accent);border-color:var(--accent)}
 
-/* SCARD */
 .scard{background:var(--surface);border-radius:var(--rl);padding:15px;border:1px solid var(--brd);margin-bottom:16px}
 .scard-title{font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:.09em;color:var(--ink3);margin-bottom:13px}
 
-/* SECTION HEADER */
 .sec-head{display:flex;justify-content:space-between;align-items:center;margin:16px 0 9px;flex-wrap:wrap;gap:6px}
 .sec-title{font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:.09em;color:var(--ink3)}
-
-/* API STATUS */
 .api-st{font-size:.72rem;margin-top:4px;display:flex;align-items:center;gap:4px}
 
-/* UNEQUAL SPLIT INPUTS */
 .split-custom-grid{display:flex;flex-direction:column;gap:7px;margin-top:8px}
 .split-row{display:flex;align-items:center;gap:8px;padding:8px 10px;background:var(--s2);border-radius:9px}
 .split-row .member-name{flex:1;font-size:.85rem;font-weight:500}
@@ -152,7 +136,6 @@ select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/
 .split-ok{background:var(--grn-lt);color:var(--grn)}
 .split-warn{background:var(--red-lt);color:var(--red)}
 
-/* ITEMIZED SPLIT */
 .item-row{display:flex;align-items:center;gap:8px;padding:9px 10px;background:var(--s2);border-radius:9px;margin-bottom:7px;flex-wrap:wrap}
 .item-row .item-name-inp{flex:1;min-width:110px;padding:7px 9px;font-size:.85rem}
 .item-row .item-amt-inp{width:80px;flex-shrink:0;text-align:right;padding:7px 8px;font-size:.85rem}
@@ -161,7 +144,6 @@ select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/
 .item-chip{font-size:.72rem;padding:3px 9px;border-radius:20px;background:var(--surface);color:var(--ink2);cursor:pointer;border:1.5px solid transparent;user-select:none}
 .item-chip.on{background:var(--alt);color:var(--accent);border-color:var(--accent)}
 
-/* EXPENSE LIST */
 .exp-item{background:var(--surface);border:1px solid var(--brd);border-radius:var(--r);padding:12px;margin-bottom:7px;display:flex;gap:10px;align-items:flex-start}
 .exp-icon{width:34px;height:34px;border-radius:9px;background:var(--s2);display:flex;align-items:center;justify-content:center;font-size:.95rem;flex-shrink:0}
 .exp-body{flex:1;min-width:0}
@@ -171,11 +153,10 @@ select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/
 .exp-hist{font-size:.68rem;color:var(--ink3);margin-top:2px;font-style:italic}
 .exp-acts{display:flex;gap:4px;margin-top:6px;flex-wrap:wrap}
 .exp-right{text-align:right;flex-shrink:0}
-.exp-amt{font-family:'DM Serif Display',serif;font-size:.98rem;color:var(--accent)}
+.exp-amt{font-family:'DM Sans',sans-serif;font-weight:700;font-size:.98rem;color:var(--accent)}
 .exp-conv{font-size:.68rem;color:var(--ink3);margin-top:2px}
 .mine-badge{display:inline-block;font-size:.63rem;font-weight:700;padding:1px 6px;border-radius:20px;background:var(--blu-lt);color:var(--blu);margin-left:4px}
 
-/* BOOKMARKS */
 .place-item{background:var(--surface);border:1px solid var(--brd);border-radius:var(--r);padding:12px;margin-bottom:7px;display:flex;gap:10px;align-items:flex-start}
 .place-icon{width:34px;height:34px;border-radius:9px;background:var(--s2);display:flex;align-items:center;justify-content:center;font-size:.95rem;flex-shrink:0}
 .place-body{flex:1;min-width:0}
@@ -187,14 +168,12 @@ select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/
 .place-meta{font-size:.68rem;color:var(--ink3);margin-top:5px;font-style:italic}
 .place-acts{display:flex;gap:4px;margin-top:8px;flex-wrap:wrap}
 
-/* BOUNCY INSTRUCTIONS */
 @keyframes softBounce{0%,100%{transform:translateY(0)}50%{transform:translateY(-4px)}}
 .inst-btn{display:inline-flex;align-items:center;gap:5px;padding:6px 14px;background:var(--alt);color:var(--accent);border-radius:20px;font-size:.78rem;font-weight:700;cursor:pointer;border:none;transition:all .3s}
 .inst-btn.bouncing{animation:softBounce 2s infinite}
 .inst-panel{max-height:0;overflow:hidden;transition:max-height .4s ease,opacity .4s ease;opacity:0}
 .inst-panel.open{max-height:280px;opacity:1;margin-top:8px}
 
-/* AUTOCOMPLETE */
 .search-wrap{position:relative}
 .autocomplete-list{position:absolute;top:100%;left:0;right:0;background:var(--surface);border:1px solid var(--brd);border-radius:0 0 var(--r) var(--r);box-shadow:var(--shd-lg);z-index:100;max-height:220px;overflow-y:auto;margin-top:-10px;padding-top:10px}
 .ac-item{padding:9px 12px;border-bottom:1px solid var(--s2);cursor:pointer;transition:background .15s}
@@ -203,7 +182,6 @@ select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/
 .ac-name{font-size:.85rem;font-weight:600;color:var(--ink)}
 .ac-meta{font-size:.7rem;color:var(--ink2);margin-top:3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 
-/* BUDGET BAR */
 .budget-card{background:var(--surface);border:1px solid var(--brd);border-radius:var(--rl);padding:15px;margin-bottom:16px}
 .budget-title{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px}
 .budget-track{height:8px;background:var(--s2);border-radius:20px;overflow:hidden;margin-bottom:6px}
@@ -212,19 +190,16 @@ select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/
 .budget-fill.over{background:var(--red)}
 .budget-labels{display:flex;justify-content:space-between;font-size:.73rem;color:var(--ink2)}
 
-/* BREAKDOWN */
 .breakdown-row{display:flex;align-items:center;gap:9px;margin-bottom:8px}
 .br-name{font-size:.84rem;font-weight:500;width:70px;flex-shrink:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .br-bar-wrap{flex:1;height:6px;background:var(--s2);border-radius:20px;overflow:hidden}
 .br-bar{height:100%;border-radius:20px;background:var(--accent);transition:width .5s}
-.br-amt{font-size:.8rem;font-weight:600;color:var(--ink);white-space:nowrap;min-width:60px;text-align:right}
+.br-amt{font-family:'DM Sans',sans-serif;font-size:.8rem;font-weight:600;color:var(--ink);white-space:nowrap;min-width:60px;text-align:right}
 
-/* FILTER TABS */
 .filter-row{display:flex;gap:5px;flex-wrap:wrap;margin-bottom:10px}
 .ftab{padding:4px 11px;border-radius:20px;font-size:.75rem;font-weight:600;cursor:pointer;background:var(--s2);color:var(--ink2);border:none;font-family:inherit;transition:all .12s}
 .ftab.act{background:var(--alt);color:var(--accent)}
 
-/* MODALS */
 .modal-bg{position:fixed;inset:0;background:rgba(0,0,0,.58);z-index:500;display:flex;align-items:flex-end;justify-content:center}
 @media(min-width:520px){.modal-bg{align-items:center}}
 .modal{background:var(--surface);border-radius:var(--rxl) var(--rxl) 0 0;padding:22px 18px 30px;width:100%;max-width:468px;max-height:90vh;overflow-y:auto}
@@ -234,18 +209,15 @@ select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/
 .modal .sub{font-size:.82rem;color:var(--ink2);margin-bottom:13px;line-height:1.5}
 .modal textarea{font-family:monospace;font-size:.77rem;height:88px;resize:none;margin-bottom:11px;background:var(--s2)}
 
-/* TOAST */
 .toast{position:fixed;bottom:22px;left:50%;transform:translateX(-50%);background:#1a1714;color:#fff;padding:9px 18px;border-radius:30px;font-size:.82rem;font-weight:500;z-index:9000;box-shadow:var(--shd-lg);transition:opacity .3s;white-space:nowrap;pointer-events:none}
 .toast.gone{opacity:0}
 
-/* ACTIVITY LOG */
 .activity-item{display:flex;gap:8px;align-items:flex-start;padding:8px 0;border-bottom:1px solid var(--brd);font-size:.8rem}
 .activity-item:last-child{border-bottom:none}
 .act-dot{width:7px;height:7px;border-radius:50%;background:var(--accent);flex-shrink:0;margin-top:5px}
 .act-text{flex:1;color:var(--ink2);line-height:1.4}
 .act-time{font-size:.68rem;color:var(--ink3);flex-shrink:0;margin-top:2px}
 
-/* CATEGORY COLORS */
 .cat-food{background:#fef3c7;color:#92400e}.cat-transport{background:#dbeafe;color:#1e40af}
 .cat-hotel{background:#f3e8ff;color:#6b21a8}.cat-drink{background:#fce7f3;color:#9d174d}
 .cat-shop{background:#dcfce7;color:#166534}.cat-activity{background:#ffedd5;color:#9a3412}
@@ -255,23 +227,20 @@ select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/
 .empty .ico{font-size:2rem;margin-bottom:9px}
 .empty p{font-size:.87rem}
 
-/* MEMBER ADD-ROW LIST */
 .member-lines{display:flex;flex-direction:column;gap:7px;margin-top:2px}
 .member-line{display:flex;align-items:center;gap:8px}
 .member-line .mnum{width:26px;height:26px;border-radius:50%;background:var(--alt);color:var(--accent);font-size:.74rem;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0}
 .member-line input[type=text]{flex:1;padding:9px 11px}
 .member-line .m-remove{width:32px;height:32px;flex-shrink:0;border:none;border-radius:8px;background:var(--s2);color:var(--ink2);cursor:pointer;font-size:.9rem;display:flex;align-items:center;justify-content:center;transition:background .13s,color .13s}
 .member-line .m-remove:hover{background:var(--red-lt);color:var(--red)}
-.add-member-btn{display:inline-flex;align-items:center;gap:7px;margin-top:9px;padding:8px 14px;border:1.5px dashed var(--brd2);background:transparent;color:var(--accent);font-family:inherit;font-size:.83rem;font-weight:600;border-radius:10px;cursor:pointer;transition:background .14s,border-color .14s}
+.add-member-btn{display:inline-flex;align-items:center;justify-content:center;gap:7px;margin-top:9px;padding:8px 14px;border:1.5px dashed var(--brd2);background:transparent;color:var(--accent);font-family:inherit;font-size:.83rem;font-weight:600;border-radius:10px;cursor:pointer;transition:background .14s,border-color .14s}
 .add-member-btn:hover{background:var(--alt);border-color:var(--accent)}
 .add-member-btn .plus{display:inline-flex;align-items:center;justify-content:center;width:20px;height:20px;border-radius:50%;background:var(--accent);color:#fff;font-size:.95rem;line-height:1}
 
-/* MAIN TABS */
 .main-tabs{display:flex;gap:4px;background:var(--surface);border-bottom:1px solid var(--brd);padding:8px 12px}
 .mtab{flex:1;padding:9px 6px;border:none;border-radius:9px;font-family:inherit;font-size:.8rem;font-weight:600;cursor:pointer;background:transparent;color:var(--ink2);transition:all .15s;display:flex;align-items:center;justify-content:center;gap:5px}
 .mtab.act{background:var(--alt);color:var(--accent)}
 
-/* ACTIVITY LOG COLLAPSE */
 .act-toggle{display:flex;justify-content:space-between;align-items:center;width:100%;background:var(--surface);border:1px solid var(--brd);border-radius:var(--rl);padding:13px 15px;cursor:pointer;font-family:inherit;transition:background .14s}
 .act-toggle:hover{background:var(--s2)}
 .act-toggle .at-lbl{font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:.09em;color:var(--ink3)}
@@ -281,36 +250,53 @@ select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/
 .act-panel.open{max-height:1200px}
 .act-panel .scard{margin-top:8px;margin-bottom:0}
 
-/* PAY CARDS */
 .pay-card{background:var(--surface);border:1.5px solid var(--brd2);border-radius:var(--rl);padding:16px;margin-bottom:12px;box-shadow:var(--shd);display:flex;flex-direction:column;gap:12px}
 .pc-top{display:flex;align-items:center;justify-content:space-between;gap:12px}
 .pc-flow{display:flex;align-items:center;gap:8px;font-size:.98rem}
 .pc-badge{padding:5px 11px;border-radius:8px;font-weight:700;font-size:.85rem}
 .pc-badge.from{background:var(--alt);color:var(--accent)}
 .pc-badge.to{background:var(--blu-lt);color:var(--blu)}
-.pc-amt{font-family:'DM Serif Display',serif;font-size:1.45rem;font-weight:700;color:var(--ink);white-space:nowrap}
-.pc-btn{width:100%;padding:12px 14px;font-size:.92rem;font-weight:700;border-radius:var(--r);border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:6px;background:var(--grn);color:#fff;transition:opacity .15s}
-.pc-btn:hover{background:#145c38}
-.history-card{background:var(--s2);border-radius:var(--r);padding:11px 14px;margin-bottom:7px;display:flex;justify-content:space-between;align-items:center;font-size:.85rem}
-.history-card .hc-txt{color:var(--ink2)}
-.history-card .hc-amt{font-weight:700;color:var(--grn)}
+.pc-amt{font-family:'DM Sans',sans-serif;font-size:1.15rem;font-weight:700;color:var(--ink);white-space:nowrap}
 
-/* BALANCE BREAKDOWN (new) */
-.breakdown-toggle{width:100%;text-align:left;background:transparent;color:var(--ink2);border:1px solid var(--brd);font-size:.78rem;padding:7px 10px;border-radius:8px}
+.pc-btn{width:100%;padding:12px 14px;font-size:.95rem;font-weight:700;border-radius:var(--r);border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;background:var(--grn);color:#fff;transition:all .2s ease;box-shadow:0 2px 8px rgba(26,122,74,.25)}
+.pc-btn:hover{background:#145c38;transform:translateY(-1px);box-shadow:0 4px 12px rgba(26,122,74,.35)}
+.pc-btn:active{transform:translateY(1px);box-shadow:none}
+
+.history-card{background:var(--s2);border-radius:var(--r);padding:11px 14px;margin-bottom:7px;display:flex;justify-content:space-between;align-items:center;font-size:.85rem}
+.history-card .hc-txt{color:var(--ink2);margin-bottom:2px}
+.history-card .hc-amt{font-family:'DM Sans',sans-serif;font-weight:700;color:var(--grn)}
+
+.breakdown-toggle{width:100%;text-align:left;background:transparent;color:var(--ink2);border:1px solid var(--brd);font-size:.78rem;padding:7px 10px;border-radius:8px;transition:background .15s}
 .breakdown-toggle:hover{background:var(--s2)}
-.breakdown-panel{max-height:0;overflow:hidden;transition:max-height .3s ease,padding .3s ease;background:var(--s2);border-radius:8px;padding:0 10px}
-.breakdown-panel.open{max-height:320px;padding:9px 10px}
-.bd-line{display:flex;justify-content:space-between;gap:8px;font-size:.79rem;padding:4px 0;color:var(--ink2);border-bottom:1px solid var(--brd)}
-.bd-line:last-child{border-bottom:none}
-.bd-amt{font-weight:600;color:var(--ink);white-space:nowrap}
-.bd-amt.bd-neg{color:var(--ink3);font-weight:500}
+.breakdown-panel{max-height:0;overflow:hidden;transition:max-height .3s ease,padding .3s ease;background:transparent;border-radius:8px;padding:0 10px}
+.breakdown-panel.open{max-height:400px;padding:9px 10px}
+
+.ledger-card{background:#fffdf9;border:1px solid var(--brd);border-radius:var(--rl);margin-bottom:12px;overflow:hidden;position:relative;box-shadow:0 2px 8px rgba(0,0,0,.04);transition:all .2s ease}
+.ledger-card.open-receipt{border-color:var(--accent);box-shadow:0 4px 14px rgba(212,98,42,0.2);transform:translateY(-2px)}
+.ledger-top{display:flex;justify-content:space-between;align-items:center;padding:16px;cursor:pointer;border-bottom:1px dashed var(--brd);transition:background .15s}
+.ledger-top:hover{background:rgba(0,0,0,.02)}
+.ledger-name{font-weight:600;font-size:.95rem;}
+.ledger-net{font-family:'DM Sans',sans-serif;font-weight:700;font-size:1.05rem;white-space:nowrap}
+.ledger-net.pos{color:var(--grn);}
+.ledger-net.neg{color:var(--red);}
+.ledger-net.zero{color:var(--ink3);}
+.ledger-panel{max-height:0;overflow:hidden;transition:max-height .4s ease, padding .4s ease;}
+.ledger-panel.open{max-height:2000px;padding-bottom:16px}
+.lp-content{padding:0 16px;font-family:'DM Mono',monospace;font-size:.82rem;color:var(--ink);}
+.lp-sec{margin-bottom:14px;}
+.lp-sec:last-child{margin-bottom:0;}
+.lp-sec-title{font-family:'DM Sans',sans-serif;font-weight:700;color:var(--ink3);margin:16px 0 8px;text-transform:uppercase;letter-spacing:0.05em;font-size:.7rem;}
+.lp-row{display:flex;justify-content:space-between;padding:4px 0;border-bottom:1px dotted var(--brd);}
+.lp-row:last-child{border-bottom:none;}
+.lp-row span:first-child{color:var(--ink2);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;padding-right:10px;}
+.lp-row span:last-child{font-weight:500;color:var(--ink);white-space:nowrap;font-family:'DM Sans',sans-serif;}
+.lp-subtotal{display:flex;justify-content:space-between;padding-top:8px;border-top:1.5px dashed var(--ink2);font-weight:700;font-family:'DM Sans',sans-serif;}
 </style>
 </head>
 <body>
 
 <div id="toast" class="toast gone"></div>
 
-<!-- AUTH MODAL -->
 <div id="auth-modal" class="modal-bg hidden">
   <div class="modal">
     <div class="mhandle"></div>
@@ -372,7 +358,6 @@ select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/
   </div>
 </div>
 
-<!-- SETTLE CONFIRMATION MODAL (new) -->
 <div id="settle-confirm-modal" class="modal-bg hidden">
   <div class="modal">
     <div class="mhandle"></div>
@@ -477,7 +462,7 @@ select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/
               <label class="fl">Members</label>
               <div class="member-lines" id="members-list"></div>
               <input type="hidden" id="members-inp">
-              <button type="button" class="add-member-btn" onclick="addMemberLine('', true)"><span class="plus">+</span> Add person</button>
+              <button type="button" class="add-member-btn" style="width:auto" onclick="addMemberLine('', true)"><span class="plus">+</span> Add person</button>
               <div style="margin-top:8px;font-size:.72rem;color:var(--ink3)">👆 Anyone opening your share link is automatically added here</div>
             </div>
             <div class="fg">
@@ -569,6 +554,9 @@ select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/
               <button class="btn-xs" onclick="addItemRow()">+ Add Item</button>
             </div>
             <div id="items-grid"></div>
+            <button type="button" class="add-member-btn" onclick="addItemRow()" style="width:100%; margin-top:8px; margin-bottom:8px; border-radius:10px; padding:10px; border-style:dashed; background:var(--s2); border-color:var(--brd2); color:var(--ink2); transition:all 0.15s">
+                <span class="plus" style="background:var(--ink3)">+</span> Add another item
+            </button>
             <div class="split-total-row" id="items-total-row" style="display:none"></div>
           </div>
         </div>
@@ -610,7 +598,6 @@ select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/
           <div class="filter-row" id="place-filter" style="margin:0"></div>
         </div>
 
-        <!-- BOUNCY INSTRUCTIONS START -->
         <div style="text-align:center;margin-bottom:12px;">
           <button id="inst-btn" class="inst-btn bouncing" onclick="toggleInstructions()">💡 What is this for? ▾</button>
         </div>
@@ -626,7 +613,6 @@ select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/
             </ul>
           </div>
         </div>
-        <!-- BOUNCY INSTRUCTIONS END -->
 
         <div class="scard">
           <div class="row2 fg">
@@ -664,11 +650,46 @@ select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/
 
       <!-- ══ BALANCES TAB ══ -->
       <div class="tab-panel" id="panel-balances" style="display:none">
-        <div class="sec-head"><div class="sec-title">Transfers to Make</div></div>
-        <div id="debts-list"></div>
+        
+        <!-- GLOBAL JUST ME FILTER (APPLIES TO BOTH VIEWS) -->
+        <div class="filter-row" style="margin-bottom: 16px;">
+             <button class="ftab act" id="bal-filter-all-btn" onclick="toggleBalFilterMe(false)">👥 Group</button>
+             <button class="ftab" id="bal-filter-me-btn" onclick="toggleBalFilterMe(true)">👤 Just Me</button>
+        </div>
+        
+        <div class="split-tabs" style="margin-bottom:12px">
+          <button class="stab act" id="btab-transfers" onclick="switchBalTab('transfers')">💸 Transfers</button>
+          <button class="stab" id="btab-ledgers" onclick="switchBalTab('ledgers')">📘 Personal Ledgers</button>
+        </div>
 
-        <div class="sec-head" style="margin-top:24px"><div class="sec-title">Settlement History</div></div>
-        <div id="settled-list"><div class="empty" style="padding:10px 0"><p>No settled payments yet.</p></div></div>
+        <!-- TRANSFERS VIEW -->
+        <div id="bal-transfers-view">
+          
+          <div class="budget-card" id="settlement-progress-card" style="display:none; margin-bottom:20px; padding: 12px 15px;">
+             <div class="budget-title" style="margin-bottom:6px">
+                <span style="font-size:.82rem;font-weight:700;color:var(--ink)">Settlement Progress</span>
+                <span id="settle-pct-lbl" style="font-size:.82rem;font-weight:700;color:var(--grn)">0%</span>
+             </div>
+             <div class="budget-track" style="margin-bottom:0">
+                <div class="budget-fill" id="settle-fill" style="width:0%; background:var(--grn); transition: width 0.8s ease"></div>
+             </div>
+          </div>
+
+          <div class="sec-head" style="margin-top:4px"><div class="sec-title">Transfers to Make</div></div>
+
+          <div id="debts-list"></div>
+
+          <div class="sec-head" style="margin-top:24px"><div class="sec-title">Settlement History</div></div>
+          <div id="settled-list"><div class="empty" style="padding:10px 0"><p>No settled payments yet.</p></div></div>
+        </div>
+
+        <!-- PERSONAL LEDGERS VIEW -->
+        <div id="bal-ledgers-view" style="display:none">
+          <div class="sec-head" style="margin-top:4px"><div class="sec-title">Individual Balances</div></div>
+          <div class="split-hint" style="margin-bottom:12px;background:var(--s2);color:var(--ink)">A complete, transparent receipt of everything each person paid for and their exact share of the trip.</div>
+          <div id="ledgers-list"></div>
+        </div>
+
       </div><!-- /panel-balances -->
 
     </div>
@@ -680,9 +701,6 @@ select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/
 <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-database-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-auth-compat.js"></script>
 <script>
-/* ═══════════════════════════════════════════════════════════════════
-   FIREBASE CONFIGURATION
-   ═══════════════════════════════════════════════════════════════════ */
 const FB = {
   apiKey:            "AIzaSyBAtDD9eP_Sjmkt04Eq5CBk3gd6BTwXNsw",
   authDomain:        "settleway-2fdeb.firebaseapp.com",
@@ -706,14 +724,12 @@ if (FB_ON) {
   } catch(e) { console.warn("Firebase init failed", e); }
 }
 
-/* ── LOCAL SAFE STORAGE ── */
 const memStore = {};
 const store = {
   get(k){ try { return localStorage.getItem(k); } catch(e){ return (k in memStore) ? memStore[k] : null; } },
   set(k,v){ try { localStorage.setItem(k,v); } catch(e){ memStore[k] = String(v); } }
 };
 
-/* ── STATE ── */
 const LS = "SettlewayApp_MultiTrips";
 let allTrips = [], activeTripId = null, rates = {}, editingId = null;
 let myName = store.get("Settleway_MyName") || store.get("TripSplit_MyName") || "";
@@ -722,8 +738,9 @@ let lastWriteTs = 0;
 let currentItems = [], itemIdCounter = 0;
 let editingPlaceId = null, placeFilter = 'all';
 let pendingSettle = null;
+let balFilterMe = false;
+let lastSettlePct = 0;
 
-/* ── PATH RESOLVER (PERMANENT 404 FIX) ── */
 function getBasePath() {
   let path = window.location.pathname;
   if (path.endsWith('index.html')) {
@@ -735,7 +752,6 @@ function getBasePath() {
   return path;
 }
 
-/* ── LIFECYCLE & REFRESH HYDRATION ── */
 window.onload = () => {
   try { 
     allTrips = JSON.parse(store.get(LS) || store.get("TripSplitApp_MultiTrips") || '[]'); 
@@ -767,7 +783,6 @@ window.onload = () => {
   }
 };
 
-/* ── AUTH ── */
 function signInGoogle() {
   if (!auth) return;
   const provider = new firebase.auth.GoogleAuthProvider();
@@ -855,7 +870,6 @@ function registerTripOwnership(tripId) {
   db.ref('users/' + currentUser.uid + '/tripIds/' + tripId).set(true);
 }
 
-/* ── JOIN & CLOUD LOAD LOGIC ── */
 function loadCloudTrip(fbId, wantsJoin) {
   if (!FB_ON || !db) return;
   db.ref('trips/' + fbId).once('value').then(snap => {
@@ -923,7 +937,6 @@ async function autoJoinTrip(tripId) {
   }
 }
 
-/* ── MERGE ENGINE (SYNC DELETIONS & ADDS) ── */
 function mergeTripLocally(incoming, forceIncoming = false) {
   const idx = allTrips.findIndex(t => t.id === incoming.id);
   const toArray = (obj) => {
@@ -945,7 +958,6 @@ function mergeTripLocally(incoming, forceIncoming = false) {
       if (incoming.creatorUid !== undefined) ex.creatorUid = incoming.creatorUid;
       ex._ts = incoming._ts || Date.now();
       
-      // Completely replace local arrays with cloud arrays to ensure deleted items are actually removed globally
       ex.expenses = toArray(incoming.expenses);
       ex.places = toArray(incoming.places);
       ex.activity = toArray(incoming.activity).sort((a,b) => b.ts - a.ts);
@@ -961,7 +973,6 @@ function mergeTripLocally(incoming, forceIncoming = false) {
   }
 }
 
-/* ── IDENTITY ── */
 function showIdModal(canCancel) {
   document.getElementById('name-inp').value = myName || '';
   document.getElementById('name-cancel').style.display = canCancel ? 'flex' : 'none';
@@ -1003,7 +1014,6 @@ function updateDashChip() {
   else av.textContent = (myName || '?')[0].toUpperCase();
 }
 
-/* ── REALTIME LISTENER & SYNCHRONIZER ── */
 function pushFB(trip) {
   if (!FB_ON || !db || !trip) return;
   lastWriteTs = Date.now(); 
@@ -1066,7 +1076,6 @@ function pill(state) {
   else { el.textContent = '🟡 Offline'; el.className = 'nav-pill pill-off'; }
 }
 
-/* ── PERSISTENCE ENGINE ── */
 function saveLocal() { store.set(LS, JSON.stringify(allTrips)); }
 
 function syncTripConfigImmediately() {
@@ -1089,7 +1098,6 @@ function onTripFieldInput() {
   syncTripConfigImmediately();
 }
 
-/* ── DASHBOARD ── */
 function renderDash() {
   if (activeTripId) return;
   document.getElementById('dash-view').classList.remove('hidden');
@@ -1155,12 +1163,11 @@ function deleteTrip(id) {
   renderDash();
 }
 
-/* ── OPEN / CLOSE TRIP (ROUTING) ── */
 function updateAdminUI() {
   const trip = allTrips.find(t => t.id === activeTripId);
   if (!trip) return;
   
-  let isAdmin = true; // Default to true for backwards compatibility with old trips
+  let isAdmin = true; 
   if (trip.creatorUid) {
     if (currentUser && trip.creatorUid === currentUser.uid) isAdmin = true;
     else if (trip.creatorUid === 'local') isAdmin = true; 
@@ -1201,12 +1208,12 @@ function openTrip(id, skipURL = false) {
   });
 
   currentItems = []; itemIdCounter = 0; editingPlaceId = null; placeFilter = 'all'; mineOnly = false;
+  balFilterMe = false;
   
   const savedTab = store.get("Settleway_ActiveTab_" + id) || 'expenses';
   switchTab(savedTab);
   collapseActivity();
   
-  // Restore Settings Toggle State
   const setOpen = store.get("Settleway_SetOpen_" + id) !== 'false';
   const setPanel = document.getElementById('set-panel');
   const setChev = document.getElementById('set-chev');
@@ -1244,7 +1251,6 @@ function toggleSettings() {
   if (activeTripId) store.set("Settleway_SetOpen_" + activeTripId, isOpen);
 }
 
-/* ── SHARE FUNCTION (ROUTING) ── */
 function getProductionShareUrl(tripId) {
   return `${window.location.origin}${getBasePath()}?id=${tripId}&join=1`;
 }
@@ -1268,7 +1274,6 @@ function copyShareLink() {
   }
 }
 
-/* ── CURRENCY DYNAMICS ── */
 function getExpenseData(exp, currentBase) {
   if (!exp.currency || exp.currency === currentBase) {
     const amt = exp.originalAmount || exp.amountInBase;
@@ -1291,7 +1296,6 @@ async function onBaseCurrChange() {
   updateStat(); updateBreakdown(); renderDebts(); renderExpenses(); updateBudget();
 }
 
-/* ── BUDGET ── */
 function openBudgetModal() {
   const trip = allTrips.find(t=>t.id===activeTripId);
   document.getElementById('bud-curr-lbl').textContent = trip.mainCurrency||'MYR';
@@ -1324,7 +1328,6 @@ function updateBudget() {
   document.getElementById('bud-left-lbl').textContent = `${Math.max(trip.budget-spent,0).toFixed(2)} left`;
 }
 
-/* ── RATES ── */
 async function fetchRates() {
   const base = document.getElementById('main-curr').value;
   const el = document.getElementById('api-status');
@@ -1343,7 +1346,6 @@ async function fetchRates() {
   } catch { el.innerHTML='<span style="color:var(--red)">⬤</span> Offline rates'; }
 }
 
-/* ── MEMBERS ── */
 function getMembers() {
   return Array.from(document.querySelectorAll('#members-list .m-name'))
     .map(i => i.value.trim()).filter(Boolean);
@@ -1404,7 +1406,6 @@ function updateMembersUI() {
 }
 function toggleChip(el) { const cb=el.querySelector('input'); cb.checked=!cb.checked; el.classList.toggle('on',cb.checked); buildCustomGrid(); }
 
-/* ── CURRENCY CHIPS ── */
 function toggleCC(el) { const cb=el.querySelector('input'); cb.checked=!cb.checked; el.classList.toggle('on',cb.checked); updateExpCurrUI(); syncTripConfigImmediately(); }
 function updateExpCurrUI() {
   const sel=document.getElementById('exp-curr'), cur=sel.value;
@@ -1413,7 +1414,6 @@ function updateExpCurrUI() {
   if(checked.includes(cur)) sel.value=cur;
 }
 
-/* ── SPLIT LOGIC ── */
 const SPLIT_HINTS = {
   equal:  "Splits the bill evenly across everyone you tick below.",
   items:  "Add each item with its price, then tap who shared it — great for 'who ate what'.",
@@ -1488,7 +1488,6 @@ function distributeEvenly() {
   validateSplit();
 }
 
-/* ── ITEMIZED SPLIT ── */
 function addItemRow() {
   currentItems.push({ id:'item_'+(itemIdCounter++)+'_'+Date.now(), name:'', amount:0, assignedTo:[] });
   renderItemsGrid();
@@ -1528,6 +1527,7 @@ function validateItems() {
   row.style.display='flex'; row.className='split-total-row '+(ok?'split-ok':'split-warn');
   row.textContent = ok ? `✓ Items total ${sum.toFixed(2)}` : `Items total: ${sum.toFixed(2)} (bill is ${totalAmt.toFixed(2)})`;
 }
+
 function computeItemSplit(totalBase) {
   const members = getMembers();
   const result = {}; members.forEach(m=>result[m]=0);
@@ -1571,7 +1571,6 @@ function computeSplitAmounts(totalBase) {
   return { amounts: result, splitBetween };
 }
 
-/* ── EXPENSE MUTATIONS ── */
 function saveExpense() {
   const trip = allTrips.find(t=>t.id===activeTripId);
   const name = document.getElementById('exp-name').value.trim();
@@ -1674,7 +1673,6 @@ function removeExpense(id) {
   renderExpenses(); renderDebts(); updateStat(); updateBreakdown(); updateBudget(); renderActivity();
 }
 
-/* ── FILTERS ── */
 const CATS = { all:'All',food:'🍜 Food',drink:'🥂 Drink',transport:'🚕 Transport',hotel:'🏨 Hotel',shop:'🛍️ Shop',activity:'🎟️ Activity',misc:'🧾 Misc' };
 function renderCatFilter() {
   const trip=allTrips.find(t=>t.id===activeTripId); if(!trip) return;
@@ -1688,9 +1686,8 @@ function toggleMineOnly() {
   renderExpenses();
 }
 
-/* ── RENDERING ── */
-const CAT_ICONS={food:'🍜',drink:'🥂',transport:'🚕',hotel:'🏨',shop:'🛍️',activity:'🎟️',misc:'🧾'};
-const WORD_ICONS={hotel:'🏨',hostel:'🏨',food:'🍜',lunch:'🍜',dinner:'🍽️',breakfast:'🍳',taxi:'🚕',grab:'🚕',cab:'🚕',uber:'🚕',bus:'🚌',train:'🚂',flight:'✈️',ferry:'⛴️',shop:'🛍️',drink:'🥂',bar:'🍻',coffee:'☕',cafe:'☕',tour:'🗺️',ticket:'🎟️',fuel:'⛽'};
+const CAT_ICONS={food:'🍜',drink:'🥂',transport:'🚕',hotel:'🏨',shop:'🛍️',activity:'🎟',misc:'🧾'};
+const WORD_ICONS={hotel:'🏨',hostel:'🏨',food:'🍜',lunch:'🍜',dinner:'🍽️',breakfast:'🍳',taxi:'🚕',grab:'🚕',cab:'🚕',uber:'🚕',bus:'🚌',train:'🚂',flight:'✈️',ferry:'⛴',shop:'🛍️',drink:'🥂',bar:'🍻',coffee:'☕',cafe:'☕',tour:'🗺️',ticket:'🎟️',fuel:'⛽'};
 function getIcon(exp) {
   if (exp.cat && CAT_ICONS[exp.cat]) return CAT_ICONS[exp.cat];
   const n=(exp.name||'').toLowerCase(); for(const k in WORD_ICONS) if(n.includes(k)) return WORD_ICONS[k];
@@ -1730,7 +1727,7 @@ function renderExpenses() {
           <button class="btn-xs del" onclick="removeExpense('${exp.id}')">🗑️ Delete</button>
         </div>
       </div>
-      <div class="exp-right"><div class="exp-amt">${exp.originalAmount.toFixed(2)} ${exp.currency}</div>${conv}</div>
+      <div class="exp-right"><div class="exp-amt" style="font-family:'DM Sans',sans-serif">${exp.originalAmount.toFixed(2)} ${exp.currency}</div>${conv}</div>
     </div>`;
   }).join('');
 }
@@ -1770,61 +1767,176 @@ function updateBreakdown() {
   </div>`).join('')+`<div style="font-size:.72rem;color:var(--ink3);margin-top:6px">Bars show amount paid. Your share may differ.</div>`;
 }
 
-/* ── PAIRWISE BREAKDOWN (new, for "how was this calculated?") ── */
-function getPairBreakdown(trip, from, to) {
-  const base = trip.mainCurrency;
-  const lines = [];
-  (trip.expenses||[]).forEach(exp=>{
-    const { ratio } = getExpenseData(exp, base);
-    if (exp.payer===to && exp.splitBetween.includes(from)) {
-      const raw = (exp.splitAmounts && exp.splitAmounts[from]!==undefined) ? exp.splitAmounts[from]*ratio : null;
-      if (raw!==null && raw>0.004) lines.push({ text: exp.name, amount: raw, dir:'owe' });
+function fireConfetti() {
+    for(let i=0;i<60;i++){
+        let c = document.createElement('div');
+        c.style.position = 'fixed';
+        c.style.left = 50 + (Math.random()*20-10) + 'vw';
+        c.style.top = '60vh';
+        c.style.width = Math.random()>0.5?'8px':'10px';
+        c.style.height = c.style.width;
+        c.style.backgroundColor = ['#d4622a','#1a7a4a','#1d5fa8','#eab308'][Math.floor(Math.random()*4)];
+        c.style.zIndex = 9999;
+        c.style.borderRadius = Math.random()>0.5 ? '50%' : '2px';
+        c.style.pointerEvents = 'none';
+        document.body.appendChild(c);
+        let a = Math.random()*Math.PI*2, v = 8+Math.random()*12;
+        let vx = Math.cos(a)*v, vy = Math.sin(a)*v - 8;
+        let t = 0;
+        let int = setInterval(()=>{
+            t+=0.1; vy+=0.4;
+            let x = parseFloat(c.style.left) + vx*0.1;
+            let y = parseFloat(c.style.top) + vy*0.1;
+            c.style.left = x+'vw'; c.style.top = y+'vh';
+            c.style.transform = `rotate(${t*50}deg)`;
+            if (y>100) { clearInterval(int); c.remove(); }
+        }, 20);
     }
-    if (exp.payer===from && exp.splitBetween.includes(to)) {
-      const raw = (exp.splitAmounts && exp.splitAmounts[to]!==undefined) ? exp.splitAmounts[to]*ratio : null;
-      if (raw!==null && raw>0.004) lines.push({ text: exp.name, amount: raw, dir:'owed' });
-    }
-  });
-  (trip.settlements||[]).forEach(s=>{
-    if (s.from===from && s.to===to) lines.push({ text:'Already settled', amount:s.amount, dir:'settled' });
-    if (s.from===to && s.to===from) lines.push({ text:'Already settled (reverse)', amount:s.amount, dir:'settled' });
-  });
-  return lines;
 }
+
 function toggleBreakdown(id) {
   const el = document.getElementById(id); if (!el) return;
   el.classList.toggle('open');
+}
+
+function toggleLedgerPanel(safeName) {
+  const panel = document.getElementById('ledger_panel_' + safeName);
+  if (panel) {
+      panel.classList.toggle('open');
+      panel.closest('.ledger-card').classList.toggle('open-receipt');
+  }
+}
+
+function viewPersonLedger(safeName) {
+  switchBalTab('ledgers');
+  document.querySelectorAll('.ledger-panel').forEach(p => {
+      p.classList.remove('open');
+      p.closest('.ledger-card').classList.remove('open-receipt');
+  });
+  const panel = document.getElementById('ledger_panel_' + safeName);
+  if (panel) {
+      panel.classList.add('open');
+      panel.closest('.ledger-card').classList.add('open-receipt');
+      setTimeout(() => panel.parentElement.scrollIntoView({ behavior: 'smooth', block: 'start' }), 50);
+  }
+}
+
+function toggleBalFilterMe(isMe) {
+    balFilterMe = isMe;
+    document.getElementById('bal-filter-me-btn').classList.toggle('act', isMe);
+    document.getElementById('bal-filter-all-btn').classList.toggle('act', !isMe);
+    renderDebts();
 }
 
 function renderDebts() {
   const trip = allTrips.find(t=>t.id===activeTripId); if(!trip) return;
   const base = trip.mainCurrency;
   const members = (trip.membersInput||'').split(',').map(s=>s.trim()).filter(Boolean);
-  const bal = {}; members.forEach(m=>bal[m]=0);
+  
+  const bal = {}; 
+  const ledgers = {};
+  
+  members.forEach(m => {
+    bal[m] = 0;
+    ledgers[m] = { paid: [], share: [], settledPaid: [], settledReceived: [], totalPaid: 0, totalShare: 0, net: 0 };
+  });
 
   (trip.expenses||[]).forEach(exp=>{
     const { amt, ratio } = getExpenseData(exp, base);
-    if(bal[exp.payer]!==undefined) bal[exp.payer] += amt;
+    
+    if(bal[exp.payer]!==undefined) {
+      bal[exp.payer] += amt;
+      ledgers[exp.payer].paid.push({ name: exp.name, amt: amt });
+      ledgers[exp.payer].totalPaid += amt;
+    }
+    
     exp.splitBetween.forEach(p=>{
       if(bal[p]!==undefined){
-        if(exp.splitAmounts && exp.splitAmounts[p]!==undefined) bal[p] -= exp.splitAmounts[p] * ratio;
-        else bal[p] -= amt / (exp.splitBetween.length||1);
+        let myShareAmt = 0;
+        if(exp.splitAmounts && exp.splitAmounts[p]!==undefined) {
+          myShareAmt = exp.splitAmounts[p] * ratio;
+        } else {
+          myShareAmt = amt / (exp.splitBetween.length||1);
+        }
+        bal[p] -= myShareAmt;
+        ledgers[p].share.push({ name: exp.name, amt: myShareAmt });
+        ledgers[p].totalShare += myShareAmt;
       }
     });
   });
 
   if (!trip.settlements || !Array.isArray(trip.settlements)) trip.settlements = trip.settlements ? Object.values(trip.settlements) : [];
   trip.settlements.forEach(s=>{
-    if(bal[s.from]!==undefined) bal[s.from] += s.amount;
-    if(bal[s.to]!==undefined) bal[s.to] -= s.amount;
+    if(bal[s.from]!==undefined) {
+      bal[s.from] += s.amount;
+      ledgers[s.from].settledPaid.push({ name: `Paid ${s.to}`, amt: s.amount });
+    }
+    if(bal[s.to]!==undefined) {
+      bal[s.to] -= s.amount;
+      ledgers[s.to].settledReceived.push({ name: `Received from ${s.from}`, amt: s.amount });
+    }
   });
+
+  let displayMembers = members;
+  if (balFilterMe) {
+    displayMembers = members.filter(m => m === myName);
+  }
+
+  const ledgersEl = document.getElementById('ledgers-list');
+  if (ledgersEl) {
+    ledgersEl.innerHTML = displayMembers.map((m) => {
+      const l = ledgers[m];
+      const net = bal[m];
+      const safeName = m.replace(/[^a-zA-Z0-9]/g,'');
+      let netClass = 'zero', netText = `${base} 0.00`;
+      let footerWording = `Fully settled <span style="color:var(--ink3)">(${base} 0.00)</span>`;
+      
+      if (net > 0.01) { 
+          netClass = 'pos'; 
+          netText = `+ ${base} ${net.toFixed(2)}`; 
+          footerWording = `Group owes ${m === myName ? 'you' : m} <br><span style="color:var(--grn);font-size:1.15rem">+ ${base} ${net.toFixed(2)}</span>`;
+      }
+      else if (net < -0.01) { 
+          netClass = 'neg'; 
+          netText = `- ${base} ${Math.abs(net).toFixed(2)}`; 
+          footerWording = `${m === myName ? 'You' : m} owe${m === myName ? '' : 's'} the group <br><span style="color:var(--red);font-size:1.15rem">- ${base} ${Math.abs(net).toFixed(2)}</span>`;
+      }
+
+      const buildRows = (arr) => arr.map(i => `<div class="lp-row"><span>${i.name}</span><span>${base} ${i.amt.toFixed(2)}</span></div>`).join('');
+      
+      let html = `<div class="ledger-card" id="ledger_card_${safeName}">
+        <div class="ledger-top" onclick="toggleLedgerPanel('${safeName}')">
+          <span class="ledger-name">${m}${m===myName?' (You)':''}</span>
+          <span class="ledger-net ${netClass}">${netText}</span>
+        </div>
+        <div class="ledger-panel" id="ledger_panel_${safeName}">
+          <div class="lp-content">`;
+      
+      if(l.paid.length) html += `<div class="lp-sec"><div class="lp-sec-title">Paid for group</div>${buildRows(l.paid)}<div class="lp-subtotal"><span>Total Paid</span><span>${base} ${l.totalPaid.toFixed(2)}</span></div></div>`;
+      if(l.share.length) html += `<div class="lp-sec"><div class="lp-sec-title">Their Share of Expenses</div>${buildRows(l.share)}<div class="lp-subtotal"><span>Total Share</span><span>${base} ${l.totalShare.toFixed(2)}</span></div></div>`;
+      if(l.settledPaid.length || l.settledReceived.length) html += `<div class="lp-sec"><div class="lp-sec-title">Settlements</div>${buildRows(l.settledPaid)}${buildRows(l.settledReceived)}</div>`;
+      if(!l.paid.length && !l.share.length && !l.settledPaid.length && !l.settledReceived.length) html += `<div class="lp-sec" style="text-align:center;color:var(--ink3)">No activity yet.</div>`;
+
+      html += `<div class="lp-sec" style="margin-top:18px; padding-top:12px; border-top:3px double var(--brd2); text-align:center;">
+          <div style="font-family:'DM Sans',sans-serif;font-weight:700;color:var(--ink3);margin-bottom:6px;text-transform:uppercase;letter-spacing:0.05em;font-size:.7rem;">Final Balance</div>
+          <div style="font-weight:700; color:var(--ink); font-family:'DM Sans',sans-serif; line-height:1.4;">${footerWording}</div>
+      </div>`;
+
+      html += `</div></div></div>`;
+      return html;
+    }).join('');
+    
+    if (!displayMembers.length) {
+      ledgersEl.innerHTML = '<div class="empty" style="padding:14px 0"><div class="ico">🔍</div><p>No ledger activity for you.</p></div>';
+    }
+  }
 
   const deb=[], cred=[];
   for(const p in bal){
     if(bal[p] < -0.01) deb.push({name:p, amount:Math.abs(bal[p])});
     else if(bal[p] > 0.01) cred.push({name:p, amount:bal[p]});
   }
-  const debtTransactions = [];
+  let debtTransactions = [];
   let d=0, c=0;
   while(d<deb.length && c<cred.length){
     const amt = Math.min(deb[d].amount, cred[c].amount);
@@ -1834,20 +1946,69 @@ function renderDebts() {
     if(cred[c].amount < 0.01) c++;
   }
 
-  const listEl = document.getElementById('debts-list');
-  if (!debtTransactions.length) {
-    listEl.innerHTML = '<div class="empty" style="padding:14px 0"><div class="ico">🎉</div><p>All group payments are settled!</p></div>';
+  const totalRemaining = debtTransactions.reduce((s, tx) => s + tx.amount, 0);
+  const totalSettled = trip.settlements.reduce((s, tx) => s + tx.amount, 0);
+  const totalDebt = totalRemaining + totalSettled;
+  const progCard = document.getElementById('settlement-progress-card');
+  
+  if (totalDebt > 0) {
+      progCard.style.display = 'block';
+      let pct = (totalSettled / totalDebt) * 100;
+      document.getElementById('settle-pct-lbl').textContent = pct.toFixed(0) + '%';
+      document.getElementById('settle-fill').style.width = pct + '%';
+      if (pct >= 99.9 && lastSettlePct < 99.9) { fireConfetti(); }
+      lastSettlePct = pct;
   } else {
-    listEl.innerHTML = debtTransactions.map((t, idx) => {
+      progCard.style.display = 'none';
+      lastSettlePct = 0;
+  }
+
+  let displayTransactions = debtTransactions;
+  if (balFilterMe) {
+      displayTransactions = debtTransactions.filter(t => t.from === myName || t.to === myName);
+  }
+
+  const listEl = document.getElementById('debts-list');
+  if (!displayTransactions.length) {
+    if (balFilterMe && debtTransactions.length) {
+        listEl.innerHTML = '<div class="empty" style="padding:14px 0"><div class="ico">😎</div><p>You have no pending transfers!</p></div>';
+    } else {
+        listEl.innerHTML = '<div class="empty" style="padding:14px 0"><div class="ico">🎉</div><p>All group payments are settled!</p></div>';
+    }
+  } else {
+    listEl.innerHTML = displayTransactions.map((t, idx) => {
       const isMePayer = t.from === myName;
       const isMeReceiver = t.to === myName;
-      const breakdown = getPairBreakdown(trip, t.from, t.to);
-      const bdId = 'bd_' + idx + '_' + t.from.replace(/[^a-zA-Z0-9]/g,'') + '_' + t.to.replace(/[^a-zA-Z0-9]/g,'');
-      const breakdownHTML = breakdown.length ? `
+      const safeNameFrom = t.from.replace(/[^a-zA-Z0-9]/g,'');
+      const bdId = 'bd_' + idx + '_' + safeNameFrom + '_' + t.to.replace(/[^a-zA-Z0-9]/g,'');
+      
+      const allFromPayments = debtTransactions.filter(tx => tx.from === t.from);
+      const totalDebtForThisPerson = allFromPayments.reduce((sum, tx) => sum + tx.amount, 0);
+      
+      let routingRowsHTML = allFromPayments.map(tx => {
+        const isCurrent = (tx.to === t.to);
+        const style = isCurrent ? 'font-weight:700; color:var(--ink);' : 'color:var(--ink2);';
+        return `<div style="display:flex; justify-content:space-between; margin-top:4px; ${style}">
+          <span>→ Pays ${tx.to}</span>
+          <span>${base} ${tx.amount.toFixed(2)}</span>
+        </div>`;
+      }).join('');
+
+      const breakdownHTML = `
         <button type="button" class="breakdown-toggle" onclick="toggleBreakdown('${bdId}')">🔍 How was this calculated?</button>
         <div class="breakdown-panel" id="${bdId}">
-          ${breakdown.map(l=>`<div class="bd-line"><span>${l.text}${l.dir==='owe'?` — ${t.from}'s share`:l.dir==='owed'?` — ${t.to}'s share (offsets)`:''}</span><span class="bd-amt${l.dir==='owed'?' bd-neg':''}">${l.dir==='owed'?'−':''}${base} ${l.amount.toFixed(2)}</span></div>`).join('')}
-        </div>` : '';
+          <div style="font-size:.8rem; color:var(--ink2); padding-top:8px; line-height: 1.4;">
+             <strong>${t.from}'s Total Trip Debt: ${base} ${totalDebtForThisPerson.toFixed(2)}</strong><br>
+             Here is how this balance is being paid off:
+          </div>
+          <div style="margin-top:6px; background:var(--surface); border-radius:6px; padding:6px 10px; font-size:.82rem;">
+            ${routingRowsHTML}
+          </div>
+          <button class="btn-xs" style="margin-top:10px; margin-bottom:4px; width:100%; background:var(--blu-lt); color:var(--blu); padding:8px" onclick="viewPersonLedger('${safeNameFrom}')">
+            📘 View ${t.from}'s itemized receipts
+          </button>
+        </div>`;
+
       return `
         <div class="pay-card">
           <div class="pc-top">
@@ -1856,7 +2017,7 @@ function renderDebts() {
               <span style="color:var(--ink3);font-size:1.1rem">→</span>
               <span class="pc-badge to">${t.to}${isMeReceiver ? ' (You)' : ''}</span>
             </div>
-            <div class="pc-amt">${base} ${t.amount.toFixed(2)}</div>
+            <div class="pc-amt" style="font-family:'DM Sans',sans-serif">${base} ${t.amount.toFixed(2)}</div>
           </div>
           ${breakdownHTML}
           <button class="pc-btn" onclick="confirmSettle('${t.from.replace(/'/g,"\\'")}','${t.to.replace(/'/g,"\\'")}',${t.amount})">
@@ -1867,20 +2028,27 @@ function renderDebts() {
     }).join('');
   }
 
+  let displaySettlements = trip.settlements;
+  if (balFilterMe) {
+      displaySettlements = trip.settlements.filter(s => s.from === myName || s.to === myName);
+  }
+
   const histEl = document.getElementById('settled-list');
-  if (!trip.settlements.length) {
+  if (!displaySettlements.length) {
     histEl.innerHTML = '<div class="empty" style="padding:10px 0"><p>No payments logged yet.</p></div>';
   } else {
-    histEl.innerHTML = trip.settlements.slice().reverse().map(s => `
+    histEl.innerHTML = displaySettlements.slice().reverse().map(s => `
       <div class="history-card">
-        <span class="hc-txt">${s.from} paid ${s.to}</span>
-        <span class="hc-amt">${base} ${s.amount.toFixed(2)} ✓</span>
+        <div style="flex:1; min-width:0;">
+          <div class="hc-txt">${s.from} paid ${s.to}</div>
+          <div class="hc-amt" style="font-family:'DM Sans',sans-serif">${base} ${s.amount.toFixed(2)} ✓</div>
+        </div>
+        <button class="btn-xs del" style="flex-shrink:0" onclick="undoSettlement('${s.id}')">↩ Undo</button>
       </div>
     `).join('');
   }
 }
 
-/* ── SETTLE CONFIRMATION (new) ── */
 function confirmSettle(from, to, amount) {
   pendingSettle = { from, to, amount };
   const trip = allTrips.find(t=>t.id===activeTripId);
@@ -1910,6 +2078,21 @@ function markSettled(from, to, amount) {
   showToast('✅ Payment marked as completed');
 }
 
+function undoSettlement(id) {
+  const trip = allTrips.find(t=>t.id===activeTripId); if (!trip) return;
+  const sIdx = trip.settlements.findIndex(x=>x.id===id);
+  if (sIdx === -1) return;
+  const s = trip.settlements[sIdx];
+  if (!confirm(`Undo payment of ${s.amount} from ${s.from} to ${s.to}?`)) return;
+  trip.settlements.splice(sIdx, 1);
+  logActivity(trip, `Undo: ${s.from} paid ${s.to} ${s.amount} ${trip.mainCurrency}`);
+  trip._ts = Date.now();
+  saveLocal();
+  pushFB(trip);
+  renderDebts(); renderActivity();
+  showToast('Payment undone');
+}
+
 function renderActivity() {
   const trip=allTrips.find(t=>t.id===activeTripId); if(!trip) return;
   const log=document.getElementById('activity-log');
@@ -1920,7 +2103,6 @@ function renderActivity() {
   }).join('');
 }
 
-/* ── BOOKMARKS & MAP SEARCH ── */
 let mapSearchTimeout = null;
 
 document.addEventListener('click', (e) => {
@@ -1982,7 +2164,6 @@ function selectPlace(name, lat, lon) {
 const PLACE_ICONS = { food:'🍜', drink:'🥂', view:'👀', activity:'🎟️', other:'📍' };
 const PLACE_FILTERS = { all:'All', want:'👀 Want', visited:'✅ Visited' };
 
-// Direct routing link formatter for GPS navigation
 function buildMapsDirLink(query) { return 'https://www.google.com/maps/dir/?api=1&destination='+encodeURIComponent(query); }
 
 function savePlace() {
@@ -2091,7 +2272,6 @@ function sharePlace(id) {
   }
 }
 
-// Converts URLs in text to clickable links safely
 function linkifyText(text) {
   if (!text) return '';
   const safeText = text.replace(/[&<>'"]/g, tag => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#39;', '"': '&quot;' }[tag]));
@@ -2103,7 +2283,6 @@ function renderPlaces() {
   const el = document.getElementById('places-list'); if (!el) return;
   if (!trip.places || !Array.isArray(trip.places)) trip.places = trip.places ? Object.values(trip.places) : [];
   
-  // Sort bookmarks by vote count (highest first)
   let places = placeFilter==='all' ? trip.places : trip.places.filter(p=>p.status===placeFilter);
   places.sort((a, b) => {
     const vA = a.votes ? Object.keys(a.votes).length : 0;
@@ -2149,7 +2328,13 @@ function renderPlaceFilter() {
 }
 function setPlaceFilter(f) { placeFilter=f; renderPlaceFilter(); renderPlaces(); }
 
-/* ── TAB PERSISTENCE ── */
+function switchBalTab(tab) {
+  document.getElementById('btab-transfers').classList.toggle('act', tab === 'transfers');
+  document.getElementById('btab-ledgers').classList.toggle('act', tab === 'ledgers');
+  document.getElementById('bal-transfers-view').style.display = tab === 'transfers' ? 'block' : 'none';
+  document.getElementById('bal-ledgers-view').style.display = tab === 'ledgers' ? 'block' : 'none';
+}
+
 function switchTab(name){
   ['expenses','places','balances'].forEach(t=>{
     const panel=document.getElementById('panel-'+t);
